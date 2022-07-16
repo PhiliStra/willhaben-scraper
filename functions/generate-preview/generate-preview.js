@@ -8,7 +8,7 @@ exports.handler = async function (event, context) {
   const { targetURL } = JSON.parse(event.body)
 
   const browser = await puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: chromium.args,
     executablePath: process.env.EXCECUTABLE_PATH || await chromium.executablePath,
     headless: true
   })

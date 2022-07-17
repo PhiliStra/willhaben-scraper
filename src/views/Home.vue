@@ -12,7 +12,7 @@
     </ul>
     <!-- input field to add new links -->
     <input
-      class="p-2 ring ring-blue-600 rounded-lg shadow-md"
+      class="p-2 ring ring-blue-600 rounded-lg shadow-md w-2/3"
       type="url"
       @keyup.enter="addLink"
       required

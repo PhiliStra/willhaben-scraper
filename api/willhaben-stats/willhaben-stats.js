@@ -20,18 +20,29 @@ export default async function handler(req, res) {
 
   // open new page in browser
   const page = await browser.newPage();
+  await page.setViewport({ width: 800, height: 600 });
 
   try {
     // navigate to the targetURL
-    await page.goto(endpoint.url);
+    await page.goto(endpoint.url, {
+      timeout: 10 * 1000,
+      waitUntil: "domcontentloaded",
+    });
 
     // get the title from the newly loaded page
     const element = await page.waitForSelector("#result-list-title");
     const value = await element.evaluate((el) => el.textContent);
-    let title = value[0].split(" ")[0];
+    let description = value.split(" ")[0];
 
-    result.title = 
-    result[endpoint.title] = title;
+    result.description = description;
+    result.title = value.substring(value.indexOf(" "));
+
+    /* const screenshot = await page.screenshot({
+      type: "jpeg",
+      encoding: "base64",
+    }); */
+
+    // result.screenshot = screenshot;
 
     res.send(result);
 

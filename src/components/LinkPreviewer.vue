@@ -16,7 +16,6 @@
         absolute
         top-8
         left-0
-        w-72
         transform
         translate-y-4
         opacity-0
@@ -29,17 +28,18 @@
         z-10
       "
     >
-      <!-- display image using the base64 screenshot data -->
-      <!--<img
-        v-if="previewData.screenshot"
-        :src="`data:image/jpeg;base64,${previewData.screenshot}`"
-        :alt="previewData.description"
-      />-->
       <!-- display title and description -->
       <div class="details p-4 text-left">
         <h1 class="font-extrabold text-xl">{{ previewData.title }}</h1>
-        <p>{{ previewData.description }}</p>
+        <p class="text-center">{{ previewData.description }}</p>
       </div>
+      <img
+        v-if="previewData.screenshot"
+        :src="`data:image/jpeg;base64,${previewData.screenshot}`"
+        :alt="previewData.description"
+        width="800"
+        height="600"
+      />
     </div>
   </div>
 </template>
@@ -61,6 +61,7 @@ export default {
         const res = await fetch("/api/generate-preview/generate-preview.js", {
           method: "POST",
           body: JSON.stringify({
+            title: "Mietwohnungen",
             targetURL: props.targetURL,
           }),
         });

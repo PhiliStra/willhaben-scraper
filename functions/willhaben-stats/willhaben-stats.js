@@ -38,7 +38,7 @@ exports.handler = async function (req, res) {
     result.title = value.substring(value.indexOf(" "));
 
     const screenshot = await page.screenshot({
-      type: "jpeg",
+      type: "webp",
       encoding: "base64",
     });
 

@@ -26,10 +26,53 @@
         rounded-md
         shadow-lg
         z-10
+        w-full
       "
     >
       <!-- display title and description -->
       <div class="details p-4 text-left bg-blue-400 text-white">
+        <div class="flex justify-center" v-if="loading">
+          <svg
+            class="w-16 -mr-8"
+            version="1.1"
+            id="L4"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 100 100"
+            enable-background="new 0 0 0 0"
+            xml:space="preserve"
+          >
+            <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.1"
+              />
+            </circle>
+            <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.2"
+              />
+            </circle>
+            <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.3"
+              />
+            </circle>
+          </svg>
+        </div>
         <h1 class="font-extrabold text-xl text-center">
           {{ previewData.title }}
         </h1>
@@ -56,6 +99,7 @@ export default {
   setup(props) {
     // create a reactive previewData object using ref
     const previewData = ref({});
+    const loading = ref(true);
 
     // function to send a POST request containing the targetURL to the serverless function
     const generatePreview = async () => {
@@ -102,6 +146,7 @@ export default {
       // run generatePreview() to get the preview data and assign to previewData
       // previewData.value = await generatePreview();
       previewData.value = await getWillhabenStats();
+      loading.value = false;
       console.log(previewData);
       // use object destructuring to get the different descriptions from the preview data
       // const { desc, og, twitter } = previewData.value.descriptions;
@@ -110,7 +155,7 @@ export default {
     });
 
     // make the following entities available to the component
-    return { getWillhabenStats, generatePreview, previewData };
+    return { getWillhabenStats, generatePreview, previewData, loading };
   },
 };
 </script>
@@ -118,5 +163,8 @@ export default {
 <style scoped>
 .link:hover ~ .result-preview {
   @apply visible opacity-100 translate-y-0;
+}
+.loading {
+  width: 600px;
 }
 </style>

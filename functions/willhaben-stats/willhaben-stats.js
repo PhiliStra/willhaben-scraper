@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-export default async function handler(req, res) {
+exports.handler = async function (req, res) {
   let result = {};
   // parse body of POSY request to valid object and
   // use object destructuring to obtain target url
@@ -37,21 +37,22 @@ export default async function handler(req, res) {
     result.description = description;
     result.title = value.substring(value.indexOf(" "));
 
-    /* const screenshot = await page.screenshot({
-      type: "jpeg",
-      encoding: "base64",
-    }); */
-
-    // result.screenshot = screenshot;
-
-    res.send(result);
-
     // close the browser
     await browser.close();
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        ...result,
+      }),
+    };
   } catch (error) {
-    res.send();
-    // if any error occurs, close the browser instance
-    // and send an error code
     await browser.close();
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error,
+      }),
+    };
   }
-}
+};

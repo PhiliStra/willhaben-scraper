@@ -77,7 +77,7 @@ export default {
 
     const getWillhabenStats = async () => {
       try {
-        const res = await fetch("/api/willhaben-stats/willhaben-stats.js", {
+        const res = await fetch("/.netlify/functions/willhaben-stats/", {
           method: "POST",
           body: JSON.stringify({
             title: "Mietwohnungen Linz",

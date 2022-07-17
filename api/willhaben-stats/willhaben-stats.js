@@ -5,17 +5,17 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-export default async function handler(event, context) {
+export default async function handler(req, res) {
   let results = {};
   // parse body of POSY request to valid object and
   // use object destructuring to obtain target url
-  const endpoint = JSON.parse(event.body);
+  const endpoint = JSON.parse(req.body);
 
   const browser = await puppeteer.launch({
     args: chromium.args,
     executablePath:
       process.env.EXCECUTABLE_PATH || (await chromium.executablePath),
-    headless: chromium.headless,
+    headless: true,
   });
 
   // open new page in browser
@@ -30,27 +30,16 @@ export default async function handler(event, context) {
     const value = await element.evaluate((el) => el.textContent);
     let title = value[0].split(" ")[0];
 
-    results[endpoint.title] = theTitle;
+    results[endpoint.title] = title;
+
+    res.send(results);
 
     // close the browser
     await browser.close();
-
-    // send the page details
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        results,
-      }),
-    };
   } catch (error) {
+    res.send();
     // if any error occurs, close the browser instance
     // and send an error code
     await browser.close();
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        error,
-      }),
-    };
   }
 }

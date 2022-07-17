@@ -56,7 +56,7 @@ export default {
     // function to send a POST request containing the targetURL to the serverless function
     const generatePreview = async () => {
       try {
-        const res = await fetch("/.api/functions/generate-preview", {
+        const res = await fetch("/api/generate-preview/generate-preview.js", {
           method: "POST",
           body: JSON.stringify({
             targetURL: props.targetURL,

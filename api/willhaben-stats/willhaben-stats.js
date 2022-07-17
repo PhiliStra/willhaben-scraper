@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 export default async function handler(req, res) {
-  let results = {};
+  let result = {};
   // parse body of POSY request to valid object and
   // use object destructuring to obtain target url
   const endpoint = JSON.parse(req.body);
@@ -30,9 +30,10 @@ export default async function handler(req, res) {
     const value = await element.evaluate((el) => el.textContent);
     let title = value[0].split(" ")[0];
 
-    results[endpoint.title] = title;
+    result.title = 
+    result[endpoint.title] = title;
 
-    res.send(results);
+    res.send(result);
 
     // close the browser
     await browser.close();

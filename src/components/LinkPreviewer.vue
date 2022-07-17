@@ -30,11 +30,11 @@
       "
     >
       <!-- display image using the base64 screenshot data -->
-      <img
+      <!--<img
         v-if="previewData.screenshot"
         :src="`data:image/jpeg;base64,${previewData.screenshot}`"
         :alt="previewData.description"
-      />
+      />-->
       <!-- display title and description -->
       <div class="details p-4 text-left">
         <h1 class="font-extrabold text-xl">{{ previewData.title }}</h1>
@@ -80,7 +80,7 @@ export default {
           method: "POST",
           body: JSON.stringify({
             title: "Mietwohnungen Linz",
-            url: "https://www.willhaben.at/iad/immobilien/mietwohnungen/oberoesterreich/linz",
+            url: props.targetURL,
           }),
         });
 
@@ -95,9 +95,11 @@ export default {
 
     // run function before component is mounted
     onBeforeMount(async () => {
-      await getWillhabenStats();
+      // await getWillhabenStats();
       // run generatePreview() to get the preview data and assign to previewData
       // previewData.value = await generatePreview();
+      previewData.value = await getWillhabenStats();
+      console.log(previewData);
       // use object destructuring to get the different descriptions from the preview data
       // const { desc, og, twitter } = previewData.value.descriptions;
       // assign only one valid value to the description property in the previewData object

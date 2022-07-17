@@ -1,9 +1,5 @@
 <template>
   <main class="home">
-    <header>
-      <h1>Welcome to the link previewer app!</h1>
-      <p>Here are some links that you can preview by hovering on them</p>
-    </header>
     <ul class="mb-4">
       <!-- render LinkPreviewer component for each demolink -->
       <li v-for="link in demoLinks" :key="link">

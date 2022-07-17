@@ -1,16 +1,26 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
+  <nav
+    class="
+      bg-blue-500
+      text-white
+      h-24
+      mb-4
+      font-bold
+      text-2xl
+      items-center
+      justify-center
+      flex
+    "
+  >
+    Willhaben Scraper
+  </nav>
   <router-view />
 </template>
 
 <script>
 export default {
-  setup() {
-  },
-}
+  setup() {},
+};
 </script>
 <style>
 #app {

@@ -29,8 +29,10 @@
       "
     >
       <!-- display title and description -->
-      <div class="details p-4 text-left">
-        <h1 class="font-extrabold text-xl">{{ previewData.title }}</h1>
+      <div class="details p-4 text-left bg-blue-400 text-white">
+        <h1 class="font-extrabold text-xl text-center">
+          {{ previewData.title }}
+        </h1>
         <p class="text-center">{{ previewData.description }}</p>
       </div>
       <img

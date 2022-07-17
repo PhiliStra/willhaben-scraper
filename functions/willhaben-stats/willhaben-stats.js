@@ -40,7 +40,7 @@ exports.handler = async function (req, res) {
     const screenshot = await page.screenshot({
       type: "jpeg",
       encoding: "base64",
-    }); */
+    });
 
     result.screenshot = screenshot;
 

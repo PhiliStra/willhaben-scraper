@@ -7,13 +7,23 @@ export default async function handler(event, context) {
   // use object destructuring to obtain target url
   const { targetURL } = JSON.parse(event.body);
 
-  const browser = await puppeteer.launch({
-    args: chromium.args,
-    executablePath:
-      process.env.EXCECUTABLE_PATH || (await chromium.executablePath),
-    headless: true,
-    ignoreHTTPSErrors: true,
-  });
+  const options = process.env.AWS_REGION
+    ? {
+        args: chromium.args,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
+      }
+    : {
+        args: [],
+        executablePath:
+          process.platform === "win32"
+            ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+            : process.platform === "linux"
+            ? "/usr/bin/google-chrome"
+            : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      };
+
+  const browser = await puppeteer.launch(options);
 
   // open new page in browser
   const page = await browser.newPage();

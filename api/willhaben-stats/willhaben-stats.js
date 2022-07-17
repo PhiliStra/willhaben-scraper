@@ -1,5 +1,5 @@
 const chromium = require("chrome-aws-lambda");
-const playwright = require("playwright-core");
+const puppeteer = require("puppeteer-core");
 
 const endpoints = [
   {
@@ -66,14 +66,25 @@ export default async function handler(event, context) {
   console.log("spawning chrome headless");
   console.log(await chromium.executablePath());
 
+  const options = process.env.AWS_REGION
+    ? {
+        args: chromium.args,
+        executablePath: await chromium.executablePath,
+        headless: chromium.headless,
+      }
+    : {
+        args: [],
+        executablePath:
+          process.platform === "win32"
+            ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+            : process.platform === "linux"
+            ? "/usr/bin/google-chrome"
+            : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      };
+
   try {
     console.log(chromium.executablePath());
-    browser = await playwright.chromium.launch({
-      args: chromium.args,
-      executablePath:
-        process.env.EXCECUTABLE_PATH || (await chromium.executablePath),
-      headless: true,
-    });
+    browser = await puppeteer.launch(options);
 
     Promise.allSettled(
       endpoints.map(async (endpoint) => {

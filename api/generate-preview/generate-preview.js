@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
-const chromium = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core')
+const chromium = require("chrome-aws-lambda");
+const puppeteer = require("puppeteer-core");
 
-export default async function handler (event, context) {
+export default async function handler(event, context) {
   // parse body of POSY request to valid object and
   // use object destructuring to obtain target url
-  const { targetURL } = JSON.parse(event.body)
+  const { targetURL } = JSON.parse(event.body);
 
   const browser = await puppeteer.launch({
     args: chromium.args,
-    executablePath: process.env.EXCECUTABLE_PATH || await chromium.executablePath,
+    executablePath:
+      process.env.EXCECUTABLE_PATH || (await chromium.executablePath),
     headless: true,
     ignoreHTTPSErrors: true,
-  })
+  });
 
   // open new page in browser
   const page = await browser.newPage();
@@ -21,35 +22,40 @@ export default async function handler (event, context) {
   await page.setViewport({
     width: 768,
     height: 425,
-    deviceScaleFactor: 1
-  })
+    deviceScaleFactor: 1,
+  });
 
   // set the prefers-color-scheme to dark
   await page.emulateMediaFeatures([
-    {name: 'prefers-color-scheme', value:'dark'}
-  ])
+    { name: "prefers-color-scheme", value: "dark" },
+  ]);
 
   try {
     // navigate to the targetURL
-    await page.goto(targetURL)
+    await page.goto(targetURL);
 
     // get the title from the newly loaded page
-    const title = (await page.$eval(`head > title`, el => el.textContent) || "")
+    const title =
+      (await page.$eval(`head > title`, (el) => el.textContent)) || "";
 
     // get the descriptions of the page using their CSS selectors
     const descriptions = await page.evaluate(() => {
-      let descriptions = {}
+      let descriptions = {};
 
-      let desc = document.querySelector(`meta[name='description']`)
-      let og = document.querySelector(`meta[property='og:description']`)
-      let twitter = document.querySelector(`meta[property='twitter:description']`)
+      let desc = document.querySelector(`meta[name='description']`);
+      let og = document.querySelector(`meta[property='og:description']`);
+      let twitter = document.querySelector(
+        `meta[property='twitter:description']`
+      );
 
-      desc ? descriptions.desc = desc.content : descriptions.desc = null
-      og ? descriptions.og = og .content: descriptions.og = null
-      twitter ? descriptions.twitter = twitter.content : descriptions.twitter = null
+      desc ? (descriptions.desc = desc.content) : (descriptions.desc = null);
+      og ? (descriptions.og = og.content) : (descriptions.og = null);
+      twitter
+        ? (descriptions.twitter = twitter.content)
+        : (descriptions.twitter = null);
 
-      return descriptions
-    })
+      return descriptions;
+    });
 
     // console.log(JSON.stringify({
     //   title,
@@ -60,12 +66,12 @@ export default async function handler (event, context) {
 
     // screenshot the page as a jpeg with a base64 encoding
     const screenshot = await page.screenshot({
-      type: 'jpeg',
-      encoding: 'base64'
-    })
+      type: "jpeg",
+      encoding: "base64",
+    });
 
     // close the browser
-    await browser.close()
+    await browser.close();
 
     // send the page details
     return {
@@ -73,20 +79,18 @@ export default async function handler (event, context) {
       body: JSON.stringify({
         title,
         screenshot,
-        descriptions
-      })
-    }
-
+        descriptions,
+      }),
+    };
   } catch (error) {
-
     // if any error occurs, close the browser instance
     // and send an error code
-    await browser.close()
+    await browser.close();
     return {
       statusCode: 400,
       body: JSON.stringify({
-        error
-      })
-    }
+        error,
+      }),
+    };
   }
 }

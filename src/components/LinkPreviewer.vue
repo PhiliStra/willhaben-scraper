@@ -46,9 +46,11 @@
 
 <script>
 import { onBeforeMount, ref } from "@vue/runtime-core";
+
 export default {
   // define targetURL as a prop
   props: ["targetURL"],
+
   setup(props) {
     // create a reactive previewData object using ref
     const previewData = ref({});
@@ -64,6 +66,23 @@ export default {
         });
 
         const data = await res.json();
+        console.log(data);
+        return data;
+      } catch (err) {
+        console.log(err);
+        return null;
+      }
+    };
+
+    const getWillhabenStats = async () => {
+      try {
+        const res = await fetch("/api/willhaben-stats/willhaben-stats.js", {
+          method: "POST",
+          body: "",
+        });
+
+        const data = await res.json();
+        console.info(data);
         return data;
       } catch (err) {
         console.log(err);
@@ -81,10 +100,12 @@ export default {
 
       // assign only one valid value to the description property in the previewData object
       previewData.value.description = desc || og || twitter || "";
+
+      await getWillhabenStats();
     });
 
     // make the following entities available to the component
-    return { generatePreview, previewData };
+    return { getWillhabenStats, generatePreview, previewData };
   },
 };
 </script>

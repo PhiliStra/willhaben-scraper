@@ -78,7 +78,10 @@ export default {
       try {
         const res = await fetch("/api/willhaben-stats/willhaben-stats.js", {
           method: "POST",
-          body: "",
+          body: JSON.stringify({
+            title: "Mietwohnungen Linz",
+            url: "https://www.willhaben.at/iad/immobilien/mietwohnungen/oberoesterreich/linz",
+          }),
         });
 
         const data = await res.json();
@@ -92,16 +95,13 @@ export default {
 
     // run function before component is mounted
     onBeforeMount(async () => {
-      // run generatePreview() to get the preview data and assign to previewData
-      previewData.value = await generatePreview();
-
-      // use object destructuring to get the different descriptions from the preview data
-      const { desc, og, twitter } = previewData.value.descriptions;
-
-      // assign only one valid value to the description property in the previewData object
-      previewData.value.description = desc || og || twitter || "";
-
       await getWillhabenStats();
+      // run generatePreview() to get the preview data and assign to previewData
+      // previewData.value = await generatePreview();
+      // use object destructuring to get the different descriptions from the preview data
+      // const { desc, og, twitter } = previewData.value.descriptions;
+      // assign only one valid value to the description property in the previewData object
+      // previewData.value.description = desc || og || twitter || "";
     });
 
     // make the following entities available to the component

@@ -1,6 +1,10 @@
 const { initializeApp } = require("firebase/app");
 const { getDatabase, ref, set } = require("firebase/database");
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,

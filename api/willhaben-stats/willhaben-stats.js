@@ -1,133 +1,56 @@
 const chromium = require("chrome-aws-lambda");
 const puppeteer = require("puppeteer-core");
 
-const endpoints = [
-  {
-    title: "Mietwohnungen",
-    url: "https://www.willhaben.at/iad/immobilien/mietwohnungen/oberoesterreich/linz",
-  },
-  {
-    title: "Eigentumswohnungenwohnungen",
-    url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
-  },
-  {
-    title: "OÖ Wohnbau",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=37441909&verticalId=2",
-  },
-  {
-    title: "WSG",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=29720423&verticalId=2",
-  },
-  {
-    title: "GWG Linz",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=28446133&verticalId=2",
-  },
-  {
-    title: "Lawog",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=17103067&verticalId=2",
-  },
-  {
-    title: "EBS",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=7091459&verticalId=2",
-  },
-  {
-    title: "GIWOG",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6912138&verticalId=2",
-  },
-  {
-    title: "Wohnbau 200",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6912076&verticalId=2",
-  },
-  {
-    title: "Neue Heimat",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6563419&verticalId=2",
-  },
-  {
-    title: "Familie",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=37609411&verticalId=2",
-  },
-  {
-    title: "Lebensräume",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6563410&verticalId=2",
-  },
-  {
-    title: "BRW",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6556903&verticalId=2",
-  },
-  {
-    title: "WAG",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6556872&verticalId=2",
-  },
-];
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 
 export default async function handler(event, context) {
   let results = {};
-  let browser = null;
-  console.log("spawning chrome headless");
-  console.log(await chromium.executablePath());
+  // parse body of POSY request to valid object and
+  // use object destructuring to obtain target url
+  const endpoint = JSON.parse(event.body);
 
-  const options = process.env.AWS_REGION
-    ? {
-        args: chromium.args,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-      }
-    : {
-        args: [],
-        executablePath:
-          process.platform === "win32"
-            ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-            : process.platform === "linux"
-            ? "/usr/bin/google-chrome"
-            : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-      };
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    executablePath:
+      process.env.EXCECUTABLE_PATH || (await chromium.executablePath),
+    headless: chromium.headless,
+  });
+
+  // open new page in browser
+  const page = await browser.newPage();
 
   try {
-    console.log(chromium.executablePath());
-    browser = await puppeteer.launch(options);
+    // navigate to the targetURL
+    await page.goto(endpoint.url);
 
-    Promise.allSettled(
-      endpoints.map(async (endpoint) => {
-        const page = await browser.newPage();
-        await page.goto(endpoint.url);
+    // get the title from the newly loaded page
+    const element = await page.waitForSelector("#result-list-title");
+    const value = await element.evaluate((el) => el.textContent);
+    let title = value[0].split(" ")[0];
 
-        theTitle = await page.locator("#result-list-title").allInnerTexts();
-        theTitle = await theTitle[0].split(" ")[0];
+    results[endpoint.title] = theTitle;
 
-        results[endpoint.title] = theTitle;
-      })
-    ).then(async () => {
-      // writeResults(results);
-      console.log(JSON.stringify(results));
+    // close the browser
+    await browser.close();
 
-      if (browser !== null) {
-        await browser.close();
-      }
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({
-          results,
-        }),
-      };
-    });
-  } catch (error) {
-    if (browser !== null) {
-      await browser.close();
-    }
-
-    console.log("error", error);
-
+    // send the page details
     return {
-      statusCode: 500,
+      statusCode: 200,
       body: JSON.stringify({
-        error: error,
+        results,
       }),
     };
-  } finally {
-    // close browser
-    /* if (browser !== null) {
-      await browser.close();
-    } */
+  } catch (error) {
+    // if any error occurs, close the browser instance
+    // and send an error code
+    await browser.close();
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error,
+      }),
+    };
   }
 }

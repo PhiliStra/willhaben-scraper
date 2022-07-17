@@ -2,28 +2,21 @@
 const chromium = require("chrome-aws-lambda");
 const puppeteer = require("puppeteer-core");
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 export default async function handler(event, context) {
   // parse body of POSY request to valid object and
   // use object destructuring to obtain target url
   const { targetURL } = JSON.parse(event.body);
 
-  const options = process.env.AWS_REGION
-    ? {
-        args: chromium.args,
-        executablePath: await chromium.executablePath,
-        headless: chromium.headless,
-      }
-    : {
-        args: [],
-        executablePath:
-          process.platform === "win32"
-            ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
-            : process.platform === "linux"
-            ? "/usr/bin/google-chrome"
-            : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-      };
-
-  const browser = await puppeteer.launch(options);
+  const browser = await puppeteer.launch({
+    args: chromium.args,
+    executablePath:
+      process.env.EXCECUTABLE_PATH || (await chromium.executablePath),
+    headless: chromium.headless,
+  });
 
   // open new page in browser
   const page = await browser.newPage();

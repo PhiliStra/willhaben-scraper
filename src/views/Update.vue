@@ -55,14 +55,12 @@
       </circle>
     </svg>
   </div>
-  <div class="flex justify-center">
-    <apexchart
-      width="500"
-      type="line"
-      :options="options"
-      :series="series"
-    ></apexchart>
-  </div>
+  <apexchart
+    class="max-w-2xl px-4 flex w-full m-auto"
+    type="line"
+    :options="options"
+    :series="series"
+  ></apexchart>
 </template>
 <script>
 import { ref } from "@vue/reactivity";
@@ -75,6 +73,7 @@ export default {
       options: {
         chart: {
           id: "willhaben",
+          width: "100%",
         },
         xaxis: {
           type: "datetime",
@@ -104,7 +103,7 @@ export default {
   },
   setup() {
     const endpoints = [
-      /* {
+      {
         title: "Mietwohnungen In Linz",
         url: "https://www.willhaben.at/iad/immobilien/mietwohnungen/oberoesterreich/linz",
       },
@@ -187,7 +186,7 @@ export default {
         })
       ).then(async () => {
         // writeResults(results);
-        // console.log(_results);
+        console.log(_results);
         loading.value = false;
         results.value = _results;
       });

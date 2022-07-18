@@ -1,2 +1,10 @@
+[build]
+  base = "/"
+  
 [functions]
   directory = "functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  stauts = 200

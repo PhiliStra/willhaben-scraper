@@ -12,7 +12,7 @@
       flex
     "
   >
-    Willhaben Scraper
+    Willhaben
   </nav>
   <router-view />
 </template>

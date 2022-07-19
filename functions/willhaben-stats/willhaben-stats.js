@@ -7,8 +7,7 @@ if (process.env.NODE_ENV !== "production") {
 
 exports.handler = async function (req, res) {
   let result = {};
-  // parse body of POSY request to valid object and
-  // use object destructuring to obtain target url
+
   const endpoint = JSON.parse(req.body);
 
   const browser = await puppeteer.launch({
@@ -35,7 +34,8 @@ exports.handler = async function (req, res) {
     let description = value.split(" ")[0];
 
     result.description = description;
-    result.title = value.substring(value.indexOf(" "));
+    // result.title = value.substring(value.indexOf(" "));
+    result.title = endpoint.title;
 
     /* const screenshot = await page.screenshot({
       type: "jpeg",

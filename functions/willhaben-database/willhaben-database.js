@@ -11,25 +11,25 @@ const endpoints = [
     title: "Eigentumswohnungenwohnungen",
     url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
   },
-  /* {
-    title: "OÖ Wohnbau",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=37441909&verticalId=2",
-  },
   {
-    title: "WSG",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=29720423&verticalId=2",
+    title: "Neue Heimat",
+    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6563419&verticalId=2",
   },
   {
     title: "GWG Linz",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=28446133&verticalId=2",
   },
+  /* {
+    title: "WSG",
+    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=29720423&verticalId=2",
+  },
+  {
+    title: "OÖ Wohnbau",
+    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=37441909&verticalId=2",
+  },
   {
     title: "Lawog",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=17103067&verticalId=2",
-  },
-  {
-    title: "EBS",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=7091459&verticalId=2",
   },
   {
     title: "GIWOG",
@@ -38,10 +38,6 @@ const endpoints = [
   {
     title: "Wohnbau 200",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6912076&verticalId=2",
-  },
-  {
-    title: "Neue Heimat",
-    url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6563419&verticalId=2",
   },
   {
     title: "Familie",
@@ -77,7 +73,10 @@ const db = getDatabase();
 
 function writeResults(result) {
   const date = new Date(Date.now());
-  set(ref(db, `${date.getMonth()}/${date.getDay()}/`), result);
+  set(
+    ref(db, `${date.getMonth() + 1}/${date.getDate()}//${date.getHours()}`),
+    result
+  );
 }
 
 const handler = async function (req, res) {
@@ -108,7 +107,7 @@ const handler = async function (req, res) {
         }
       })
     ).then(async () => {
-      // writeResults(results);
+      writeResults(_results);
       console.log(_results);
     });
 
@@ -118,10 +117,10 @@ const handler = async function (req, res) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        ..._results,
+        _results,
       }),
     };
-  } catch {
+  } catch (error) {
     return {
       statusCode: 400,
       body: JSON.stringify({

@@ -83,13 +83,16 @@ function writeResults(result) {
 const handler = async function (req, res) {
   try {
     let _results = {};
-    Promise.all(
+    await Promise.all(
       endpoints.map(async (endpoint) => {
         try {
           const res = await fetch(
             `${process.env.URL}/.netlify/functions/willhaben-stats/`,
             {
               method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
               body: JSON.stringify({
                 title: endpoint.title,
                 url: endpoint.url,
@@ -107,14 +110,17 @@ const handler = async function (req, res) {
     ).then(async () => {
       // writeResults(results);
       console.log(_results);
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({
-          _results,
-        }),
-      };
     });
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ..._results,
+      }),
+    };
   } catch {
     return {
       statusCode: 400,

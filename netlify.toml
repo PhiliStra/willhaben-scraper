@@ -4,6 +4,9 @@
 [functions]
   directory = "functions"
 
+[functions."willhaben-database"]
+  schedule = "@hourly"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

@@ -1,5 +1,6 @@
 const { initializeApp } = require("firebase/app");
 const { getDatabase, ref, set } = require("firebase/database");
+const fetch = require("node-fetch");
 
 const endpoints = [
   {
@@ -10,7 +11,7 @@ const endpoints = [
     title: "Eigentumswohnungenwohnungen",
     url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
   },
-  {
+  /* {
     title: "OÖ Wohnbau",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=37441909&verticalId=2",
   },
@@ -57,7 +58,7 @@ const endpoints = [
   {
     title: "WAG",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6556872&verticalId=2",
-  },
+  }, */
 ];
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -72,33 +73,60 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getDatabase();
 
-export default function writeResults(result) {
+function writeResults(result) {
   const date = new Date(Date.now());
-  const db = getDatabase();
   set(ref(db, `${date.getMonth()}/${date.getDay()}/`), result);
 }
 
-exports.handler = async function (req, res) {
+const handler = async function (req, res) {
   try {
-    
+    let _results = {};
+    Promise.all(
+      endpoints.map(async (endpoint) => {
+        try {
+          const res = await fetch(
+            `${process.env.URL}/.netlify/functions/willhaben-stats/`,
+            {
+              method: "POST",
+              body: JSON.stringify({
+                title: endpoint.title,
+                url: endpoint.url,
+              }),
+            }
+          );
+
+          const data = await res.json();
+          _results[data.title] = data.description;
+        } catch (err) {
+          console.log(err);
+          return null;
+        }
+      })
+    ).then(async () => {
+      // writeResults(results);
+      console.log(_results);
+    });
   } catch {
-    app
+    /* app
       .delete()
       .then(function () {
         console.log("App deleted successfully");
       })
       .catch(function (error) {
         console.log("Error deleting app:", error);
-      });
+      }); */
   } finally {
-    app
+    /* app
       .delete()
       .then(function () {
         console.log("App deleted successfully");
       })
       .catch(function (error) {
         console.log("Error deleting app:", error);
-      });
+      });*/
   }
 };
+
+module.exports.handler = handler;

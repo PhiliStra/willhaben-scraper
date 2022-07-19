@@ -107,16 +107,21 @@ const handler = async function (req, res) {
     ).then(async () => {
       // writeResults(results);
       console.log(_results);
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          _results,
+        }),
+      };
     });
   } catch {
-    /* app
-      .delete()
-      .then(function () {
-        console.log("App deleted successfully");
-      })
-      .catch(function (error) {
-        console.log("Error deleting app:", error);
-      }); */
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error,
+      }),
+    };
   } finally {
     /* app
       .delete()

@@ -113,7 +113,6 @@ export default {
         });
 
         const data = await res.json();
-        console.log(data);
         return data;
       } catch (err) {
         console.log(err);
@@ -147,7 +146,7 @@ export default {
       // previewData.value = await generatePreview();
       previewData.value = await getWillhabenStats();
       loading.value = false;
-      
+
       console.log(previewData);
       // use object destructuring to get the different descriptions from the preview data
       // const { desc, og, twitter } = previewData.value.descriptions;

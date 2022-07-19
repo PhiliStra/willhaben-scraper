@@ -49,9 +49,7 @@ exports.handler = async function (req, res) {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({
-        ...result,
-      }),
+      body: JSON.stringify(result),
     };
   } catch (error) {
     await browser.close();

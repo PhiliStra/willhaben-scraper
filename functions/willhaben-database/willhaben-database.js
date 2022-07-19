@@ -122,15 +122,6 @@ const handler = async function (req, res) {
         error,
       }),
     };
-  } finally {
-    /* app
-      .delete()
-      .then(function () {
-        console.log("App deleted successfully");
-      })
-      .catch(function (error) {
-        console.log("Error deleting app:", error);
-      });*/
   }
 };
 

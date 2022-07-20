@@ -65,6 +65,7 @@
 <script>
 import { ref } from "@vue/reactivity";
 import { onBeforeMount } from "@vue/runtime-core";
+import WillhabenService from "../services/WillhabenService";
 
 export default {
   props: [],
@@ -185,7 +186,7 @@ export default {
           }
         })
       ).then(async () => {
-        try {
+        /* try {
           await fetch("/.netlify/functions/willhaben-database/", {
             method: "POST",
             body: JSON.stringify(_results),
@@ -193,9 +194,19 @@ export default {
         } catch (err) {
           console.log(err);
           return null;
-        }
+        }*/
+
+        await WillhabenService.create(_results)
+          .then(() => {
+            console.log("Created new item successfully!", _results);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+
+        // await WillhabenService.getChildren(`/2022/07`);
+
         // writeResults(results);
-        console.log(_results);
         loading.value = false;
         results.value = _results;
       });

@@ -1,20 +1,21 @@
 import db from "../db/db";
+import { ref, set, get, child } from "firebase/database";
 
 class WillhabenService {
-  getAll() {
-    return db;
+  getChildren(children) {
+    return get(child(db, children));
   }
-  create(tutorial) {
-    return db.push(tutorial);
-  }
-  update(key, value) {
-    return db.child(key).update(value);
-  }
-  delete(key) {
-    return db.child(key).remove();
-  }
-  deleteAll() {
-    return db.remove();
+  create(result) {
+    const date = new Date(Date.now());
+    return set(
+      ref(
+        db,
+        `${date.getFullYear()}/${
+          date.getMonth() + 1
+        }/${date.getDate()}/${date.getHours()}`
+      ),
+      result
+    );
   }
 }
 

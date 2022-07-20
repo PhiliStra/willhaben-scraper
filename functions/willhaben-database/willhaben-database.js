@@ -113,12 +113,12 @@ const handler = async function (req, res) {
 
     return {
       statusCode: 200,
-      headers: {
+      /* headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         _results,
-      }),
+      }), */
     };
   } catch (error) {
     return {

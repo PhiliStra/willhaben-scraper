@@ -1,4 +1,4 @@
-const { initializeApp } = require("firebase/app");
+const { initializeApp, deleteApp } = require("firebase/app");
 const { getDatabase, ref, set } = require("firebase/database");
 const fetch = require("node-fetch");
 
@@ -19,7 +19,7 @@ const endpoints = [
     title: "GWG Linz",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=28446133&verticalId=2",
   },
-  {
+  /*{
     title: "WSG",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=29720423&verticalId=2",
   },
@@ -68,10 +68,13 @@ const firebaseConfig = {
   appId: process.env.VUE_APP_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase();
+let app;
+let db;
 
 async function writeResults(result) {
+  app = await initializeApp(firebaseConfig);
+  db = await getDatabase(app);
+
   const date = new Date(Date.now());
   set(
     ref(
@@ -119,6 +122,7 @@ const handler = async function (req, res) {
       })
     ).then(async () => {
       await writeResults(_results);
+      app.deleteApp();
       return {
         statusCode: 200,
       };

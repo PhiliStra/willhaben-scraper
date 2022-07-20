@@ -111,7 +111,7 @@ export default {
         title: "Eigentumswohnungenwohnungen in Linz",
         url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
       },
-      /* {
+      {
         title: "OÖ Wohnbau",
         url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=37441909&verticalId=2",
       },
@@ -158,7 +158,7 @@ export default {
       {
         title: "WAG",
         url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6556872&verticalId=2",
-      },*/
+      },
     ];
 
     const loading = ref(true);
@@ -185,6 +185,18 @@ export default {
           }
         })
       ).then(async () => {
+        try {
+          const res = await fetch("/.netlify/functions/willhaben-database/", {
+            method: "POST",
+            body: JSON.stringify(_results),
+          });
+
+          const data = await res;
+          console.log(data);
+        } catch (err) {
+          console.log(err);
+          return null;
+        }
         // writeResults(results);
         console.log(_results);
         loading.value = false;

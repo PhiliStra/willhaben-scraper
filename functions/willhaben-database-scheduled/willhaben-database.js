@@ -81,13 +81,44 @@ function writeResults(result) {
 
 const handler = async function (req, res) {
   try {
-    const results = JSON.parse(req.body);
-    writeResults(results);
-    console.log(results);
+    let _results = {};
+    await Promise.all(
+      endpoints.map(async (endpoint) => {
+        try {
+          const res = await fetch(
+            `${process.env.URL}/.netlify/functions/willhaben-stats/`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                title: endpoint.title,
+                url: endpoint.url,
+              }),
+            }
+          );
+
+          const data = await res.json();
+          _results[data.title] = data.description;
+        } catch (err) {
+          console.log(err);
+          return null;
+        }
+      })
+    ).then(async () => {
+      writeResults(_results);
+      console.log(_results);
+    });
 
     return {
       statusCode: 200,
-      body: "DONE",
+      /* headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        _results,
+      }), */
     };
   } catch (error) {
     return {

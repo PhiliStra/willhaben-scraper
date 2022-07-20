@@ -1,10 +1,6 @@
 const chromium = require("chrome-aws-lambda");
 const puppeteer = require("puppeteer-core");
 
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
-
 exports.handler = async function (req, res) {
   let result = {};
 

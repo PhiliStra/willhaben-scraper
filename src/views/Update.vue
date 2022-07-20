@@ -186,13 +186,10 @@ export default {
         })
       ).then(async () => {
         try {
-          const res = await fetch("/.netlify/functions/willhaben-database/", {
+          await fetch("/.netlify/functions/willhaben-database/", {
             method: "POST",
             body: JSON.stringify(_results),
           });
-
-          const data = await res;
-          console.log(data);
         } catch (err) {
           console.log(err);
           return null;

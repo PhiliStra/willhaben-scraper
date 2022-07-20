@@ -1,6 +1,5 @@
 const { initializeApp } = require("firebase/app");
 const { getDatabase, ref, set } = require("firebase/database");
-const fetch = require("node-fetch");
 
 const endpoints = [
   {
@@ -71,7 +70,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-function writeResults(result) {
+async function writeResults(result) {
   const date = new Date(Date.now());
   set(
     ref(db, `${date.getMonth() + 1}/${date.getDate()}//${date.getHours()}`),
@@ -80,16 +79,16 @@ function writeResults(result) {
 }
 
 const handler = async function (req, res) {
+  const results = JSON.parse(req.body);
   try {
-    const results = JSON.parse(req.body);
-    writeResults(results);
+    await writeResults(results);
     console.log(results);
 
     return {
       statusCode: 200,
       body: "DONE",
     };
-  } catch (error) {
+  } catch (err) {
     return {
       statusCode: 400,
       body: JSON.stringify({

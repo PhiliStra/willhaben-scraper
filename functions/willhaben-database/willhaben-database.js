@@ -75,7 +75,13 @@ async function writeResults(result) {
   set(
     ref(db, `${date.getMonth() + 1}/${date.getDate()}//${date.getHours()}`),
     result
-  );
+  )
+    .then(() => {
+      console.log("Data saved successfully!");
+    })
+    .catch((error) => {
+      console.log("The write failed", error);
+    });
 }
 
 const handler = async function (req, res) {

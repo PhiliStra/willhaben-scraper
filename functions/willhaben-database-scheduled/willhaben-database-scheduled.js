@@ -86,7 +86,13 @@ async function writeResults(result) {
     result
   )
     .then(() => {
-      console.log("Data saved successfully!", result);
+      console.log(
+        "Data saved successfully!",
+        result,
+        `${date.getFullYear()}/${
+          date.getMonth() + 1
+        }/${date.getDate()}/${date.getHours()}`
+      );
     })
     .catch((error) => {
       console.log("The write failed", error);

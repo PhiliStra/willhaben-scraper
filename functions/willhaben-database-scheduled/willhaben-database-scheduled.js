@@ -11,7 +11,7 @@ const endpoints = [
     title: "Eigentumswohnungenwohnungen",
     url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
   },
-  /* {
+  {
     title: "Neue Heimat",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6563419&verticalId=2",
   },
@@ -19,7 +19,7 @@ const endpoints = [
     title: "GWG Linz",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=28446133&verticalId=2",
   },
-  /*{
+  {
     title: "WSG",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=29720423&verticalId=2",
   },
@@ -54,7 +54,7 @@ const endpoints = [
   {
     title: "WAG",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6556872&verticalId=2",
-  },*/
+  },
 ];
 
 // TODO: Replace the following with your app's Firebase project configuration

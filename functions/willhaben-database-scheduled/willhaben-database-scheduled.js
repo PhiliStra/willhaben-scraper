@@ -11,7 +11,7 @@ const endpoints = [
     title: "Eigentumswohnungenwohnungen",
     url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
   },
-  {
+  /* {
     title: "Neue Heimat",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6563419&verticalId=2",
   },
@@ -54,7 +54,7 @@ const endpoints = [
   {
     title: "WAG",
     url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6556872&verticalId=2",
-  },
+  },*/
 ];
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -71,10 +71,15 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 
-function writeResults(result) {
+async function writeResults(result) {
   const date = new Date(Date.now());
   set(
-    ref(db, `${date.getMonth() + 1}/${date.getDate()}//${date.getHours()}`),
+    ref(
+      db,
+      `${date.getFullYear()}/${
+        date.getMonth() + 1
+      }/${date.getDate()}/${date.getHours()}`
+    ),
     result
   )
     .then(() => {
@@ -113,19 +118,11 @@ const handler = async function (req, res) {
         }
       })
     ).then(async () => {
-      writeResults(_results);
-      console.log(_results);
+      await writeResults(_results);
+      return {
+        statusCode: 200,
+      };
     });
-
-    return {
-      statusCode: 200,
-      /* headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _results,
-      }), */
-    };
   } catch (error) {
     return {
       statusCode: 400,

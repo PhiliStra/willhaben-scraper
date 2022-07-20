@@ -1,5 +1,5 @@
 const { initializeApp } = require("firebase/app");
-const { getDatabase, ref, set } = require("firebase/database");
+const { getDatabase, ref, set, get, child } = require("firebase/database");
 
 const endpoints = [
   {
@@ -73,11 +73,21 @@ const db = getDatabase();
 async function writeResults(result) {
   const date = new Date(Date.now());
   set(
-    ref(db, `${date.getMonth() + 1}/${date.getDate()}//${date.getHours()}`),
+    ref(
+      db,
+      `${date.getFullYear()}/${
+        date.getMonth() + 1
+      }/${date.getDate()}//${date.getHours()}`
+    ),
     result
   )
     .then(() => {
       console.log("Data saved successfully!");
+      const starCountRef = ref(db, "2022/7");
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+      });
     })
     .catch((error) => {
       console.log("The write failed", error);
@@ -88,7 +98,6 @@ const handler = async function (req, res) {
   const results = JSON.parse(req.body);
   try {
     await writeResults(results);
-    console.log(results);
 
     return {
       statusCode: 200,

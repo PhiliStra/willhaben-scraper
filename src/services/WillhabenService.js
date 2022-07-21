@@ -1,10 +1,11 @@
 import db from "../db/db";
-import { ref, set, get, child } from "firebase/database";
+import { ref, set, onValue, query } from "firebase/database";
 
 class WillhabenService {
   getChildren(children) {
-    return get(child(db, children));
+    return onValue(query(ref(db, children)));
   }
+
   create(result) {
     const date = new Date(Date.now());
     return set(

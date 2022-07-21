@@ -3,11 +3,11 @@ const { getDatabase, ref, set } = require("firebase/database");
 
 const endpoints = [
   {
-    title: "Mietwohnungen",
+    title: "Mietwohnungen in L_nz",
     url: "https://www.willhaben.at/iad/immobilien/mietwohnungen/oberoesterreich/linz",
   },
   {
-    title: "Eigentumswohnungenwohnungen",
+    title: "Eigentumswohnungen in L_nz",
     url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
   },
   {

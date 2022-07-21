@@ -67,11 +67,11 @@ export default {
   setup() {
     const endpoints = [
       {
-        title: "Mietwohnungen In Linz",
+        title: "Mietwohnungen in L_nz",
         url: "https://www.willhaben.at/iad/immobilien/mietwohnungen/oberoesterreich/linz",
       },
       {
-        title: "Eigentumswohnungenwohnungen in Linz",
+        title: "Eigentumswohnungen in L_nz",
         url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
       },
       {

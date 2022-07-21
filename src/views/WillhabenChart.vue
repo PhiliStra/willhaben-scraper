@@ -64,7 +64,10 @@
 </template>
 <script>
 import { ref } from "@vue/reactivity";
-import { onBeforeMount } from "@vue/runtime-core";
+import { onBeforeMount, onMounted } from "@vue/runtime-core";
+import { ref as reference, onValue } from "firebase/database";
+import db from "../db/db";
+// import { WillhabenService } from "../services/WillhabenService";
 
 export default {
   name: "WillhabenChart",
@@ -77,7 +80,6 @@ export default {
           width: "100%",
         },
         xaxis: {
-          type: "datetime",
           categories: [
             "07/16/2022",
             "07/17/2022",
@@ -107,8 +109,79 @@ export default {
     const results = ref({});
 
     onBeforeMount(async () => {});
+    onMounted(async () => {
+      // await WillhabenService.fuckYou();
+    });
 
     return { results, loading };
+  },
+  methods: {
+    onUpdateChart() {
+      console.log("HALLO");
+
+      onValue(reference(db), (snapshot) => {
+        const data = snapshot.val();
+        this.loading = false;
+
+        let _categories = [];
+        let _series = [];
+
+        console.log(data);
+
+        /* const _year = Object.keys(data);
+        const _month = Object.keys(data[_year]);
+        const _day = Object.keys(data[_year][_month][21]); */
+        const _keys = Object.keys(data["2022"]["7"]["21"]["12"]);
+
+        _keys.map((key) => {
+          let _tmp = {};
+          let _tmpData = [];
+          _tmp.name = key;
+
+          data["2022"]["7"]["21"].map((item, index) => {
+            _tmpData.push(parseFloat(item[key]));
+            // console.log(Object.keys(item));
+            // _series.push(item);
+
+            _categories.push(`21/7/2022/${index}`);
+            // console.log(item);
+          });
+          _tmp.data = _tmpData;
+          _series.push(_tmp);
+        });
+
+        console.log("series: ", _series);
+
+        // console.log(_categories);
+
+        this.series = _series;
+
+        this.options = {
+          ...this.options,
+          ...{
+            xaxis: {
+              categories: _categories,
+            },
+          },
+        };
+        // updateStarCount(postElement, data);
+      });
+
+      /* const max = 90;
+      const min = 20;
+      const newData = this.series[0].data.map(() => {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      });
+      // In the same way, update the series option
+      this.series = [
+        {
+          data: newData,
+        },
+      ]; */
+    },
+  },
+  created() {
+    this.onUpdateChart();
   },
 };
 </script>

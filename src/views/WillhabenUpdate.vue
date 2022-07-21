@@ -62,6 +62,7 @@ import { onBeforeMount } from "@vue/runtime-core";
 import WillhabenService from "../services/WillhabenService";
 
 export default {
+  name: "WillhabenUpdate",
   props: [],
   setup() {
     const endpoints = [

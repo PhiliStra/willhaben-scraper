@@ -22,6 +22,7 @@ import { ref } from "@vue/reactivity";
 import LinkPreviewer from "../components/LinkPreviewer.vue";
 
 export default {
+  name: "WillhabenHome",
   components: { LinkPreviewer },
   setup() {
     const demoLinks = ref([

@@ -67,6 +67,7 @@ import { ref } from "@vue/reactivity";
 import { onBeforeMount } from "@vue/runtime-core";
 
 export default {
+  name: "WillhabenChart",
   props: [],
   data: function () {
     return {

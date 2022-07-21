@@ -79,29 +79,8 @@ export default {
           id: "willhaben",
           width: "100%",
         },
-        xaxis: {
-          categories: [
-            "07/16/2022",
-            "07/17/2022",
-            "07/18/2022",
-            "07/19/2022",
-            "07/20/2022",
-            "07/21/2022",
-            "07/22/2022",
-            "07/23/2022",
-          ],
-        },
       },
-      series: [
-        {
-          name: "Mietwohnungen in Linz",
-          data: [962, 970, 983, 990, 987, 990, 994, 1002],
-        },
-        {
-          name: "Eigentumswohnungen in Linz",
-          data: [930, 940, 945, 950, 949, 960, 970, 991],
-        },
-      ],
+      series: [],
     };
   },
   setup() {
@@ -117,8 +96,6 @@ export default {
   },
   methods: {
     onUpdateChart() {
-      console.log("HALLO");
-
       onValue(reference(db), (snapshot) => {
         const data = snapshot.val();
         this.loading = false;
@@ -126,31 +103,41 @@ export default {
         let _categories = [];
         let _series = [];
 
-        console.log(data);
+        // console.log(data);
 
         /* const _year = Object.keys(data);
         const _month = Object.keys(data[_year]);
         const _day = Object.keys(data[_year][_month][21]); */
         const _keys = Object.keys(data["2022"]["7"]["21"]["12"]);
+        const _hours = Object.keys(data["2022"]["7"]["21"]);
+
+        _hours.map((category) => {
+          _categories.push(`21/7/2022/${category}`);
+        });
 
         _keys.map((key) => {
           let _tmp = {};
           let _tmpData = [];
           _tmp.name = key;
 
-          data["2022"]["7"]["21"].map((item, index) => {
-            _tmpData.push(parseFloat(item[key]));
-            // console.log(Object.keys(item));
-            // _series.push(item);
+          // console.log(key);
 
-            _categories.push(`21/7/2022/${index}`);
-            // console.log(item);
+          _hours.map((category) => {
+            Object.entries(data["2022"]["7"]["21"][category]).map((item) => {
+              if (item[0] === key) {
+                console.log(item[1]);
+                _tmpData.push(parseFloat(item[1]));
+              }
+            });
           });
           _tmp.data = _tmpData;
-          _series.push(_tmp);
+          if (
+            key === "Mietwohnungen in L_nz" ||
+            key === "Eigentumswohnungen in L_nz"
+          ) {
+            _series.push(_tmp);
+          }
         });
-
-        console.log("series: ", _series);
 
         // console.log(_categories);
 
@@ -164,20 +151,7 @@ export default {
             },
           },
         };
-        // updateStarCount(postElement, data);
       });
-
-      /* const max = 90;
-      const min = 20;
-      const newData = this.series[0].data.map(() => {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      });
-      // In the same way, update the series option
-      this.series = [
-        {
-          data: newData,
-        },
-      ]; */
     },
   },
   created() {

@@ -81,7 +81,7 @@ async function writeResults(result) {
       db,
       `${date.getFullYear()}/${
         date.getMonth() + 1
-      }/${date.getDate()}/${date.getHours()}`
+      }/${date.getDate()}/${date.get}`
     ),
     result
   )

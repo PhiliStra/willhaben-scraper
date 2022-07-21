@@ -55,12 +55,6 @@
       </circle>
     </svg>
   </div>
-  <apexchart
-    class="max-w-2xl px-4 flex w-full m-auto"
-    type="line"
-    :options="options"
-    :series="series"
-  ></apexchart>
 </template>
 <script>
 import { ref } from "@vue/reactivity";
@@ -69,39 +63,6 @@ import WillhabenService from "../services/WillhabenService";
 
 export default {
   props: [],
-  data: function () {
-    return {
-      options: {
-        chart: {
-          id: "willhaben",
-          width: "100%",
-        },
-        xaxis: {
-          type: "datetime",
-          categories: [
-            "07/16/2022",
-            "07/17/2022",
-            "07/18/2022",
-            "07/19/2022",
-            "07/20/2022",
-            "07/21/2022",
-            "07/22/2022",
-            "07/23/2022",
-          ],
-        },
-      },
-      series: [
-        {
-          name: "Mietwohnungen in Linz",
-          data: [962, 970, 983, 990, 987, 990, 994, 1002],
-        },
-        {
-          name: "Eigentumswohnungen in Linz",
-          data: [930, 940, 945, 950, 949, 960, 970, 991],
-        },
-      ],
-    };
-  },
   setup() {
     const endpoints = [
       {

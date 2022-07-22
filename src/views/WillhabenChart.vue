@@ -57,7 +57,7 @@
   </div>
   <apexchart
     class="max-w-2xl px-4 flex w-full m-auto"
-    type="line"
+    type="bar"
     :options="options"
     :series="series"
   ></apexchart>
@@ -78,7 +78,23 @@ export default {
         chart: {
           id: "willhaben",
           width: "100%",
+          stacked: true,
         },
+        colors: [
+          "#f94144",
+          "#f3722c",
+          "#f8961e",
+          "#f9844a",
+          "#f9c74f",
+          "#90be6d",
+          "#43aa8b",
+          "#4d908e",
+          "#94d2bd",
+          "#ef476f",
+          "#ffd166",
+          "#06d6a0",
+          "#118ab2",
+        ],
       },
       series: [],
     };
@@ -105,15 +121,21 @@ export default {
 
         // console.log(data);
 
-        /* const _year = Object.keys(data);
+        const _year = Object.keys(data);
         const _month = Object.keys(data[_year]);
-        const _day = Object.keys(data[_year][_month][21]); */
-        const _keys = Object.keys(data["2022"]["7"]["21"]["12"]);
-        const _hours = Object.keys(data["2022"]["7"]["21"]);
+        const _days = Object.keys(data[_year][_month]);
+        const _keys = Object.keys(data[_year][_month]["22"]["0"]);
+        // const _hours = Object.keys(data[_year][_month]["21"]);
 
-        _hours.map((category) => {
+        /* _hours.map((category) => {
           _categories.push(`21/7/2022/${category}`);
+        }); */
+
+        _days.map((category) => {
+          _categories.push(`7/${category}/2022`);
         });
+
+        console.log(_days);
 
         _keys.map((key) => {
           let _tmp = {};
@@ -122,19 +144,16 @@ export default {
 
           // console.log(key);
 
-          _hours.map((category) => {
-            Object.entries(data["2022"]["7"]["21"][category]).map((item) => {
+          _days.map((category) => {
+            Object.entries(data["2022"]["7"][category]["0"]).map((item) => {
               if (item[0] === key) {
-                console.log(item[1]);
+                // console.log(item[1]);
                 _tmpData.push(parseFloat(item[1]));
               }
             });
           });
           _tmp.data = _tmpData;
-          if (
-            key === "Mietwohnungen in L_nz" ||
-            key === "Eigentumswohnungen in L_nz"
-          ) {
+          if (key !== "Giwog") {
             _series.push(_tmp);
           }
         });
@@ -147,6 +166,7 @@ export default {
           ...this.options,
           ...{
             xaxis: {
+              type: "datetime",
               categories: _categories,
             },
           },

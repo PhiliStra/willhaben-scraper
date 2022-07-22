@@ -64,7 +64,7 @@
 </template>
 <script>
 import { ref } from "@vue/reactivity";
-import { onBeforeMount, onMounted } from "@vue/runtime-core";
+import { onMounted } from "@vue/runtime-core";
 import { ref as reference, onValue } from "firebase/database";
 import db from "../db/db";
 // import { WillhabenService } from "../services/WillhabenService";
@@ -72,49 +72,36 @@ import db from "../db/db";
 export default {
   name: "WillhabenChart",
   props: [],
-  data: function () {
-    return {
-      options: {
-        chart: {
-          id: "willhaben",
-          width: "100%",
-          stacked: true,
-        },
-        colors: [
-          "#f94144",
-          "#f3722c",
-          "#f8961e",
-          "#f9844a",
-          "#f9c74f",
-          "#90be6d",
-          "#43aa8b",
-          "#4d908e",
-          "#94d2bd",
-          "#ef476f",
-          "#ffd166",
-          "#06d6a0",
-          "#118ab2",
-        ],
-      },
-      series: [],
-    };
-  },
   setup() {
     const loading = ref(true);
-    const results = ref({});
-
-    onBeforeMount(async () => {});
-    onMounted(async () => {
-      // await WillhabenService.fuckYou();
+    const options = ref({
+      chart: {
+        id: "willhaben",
+        width: "100%",
+        stacked: true,
+      },
+      colors: [
+        "#f94144",
+        "#f3722c",
+        "#f8961e",
+        "#f9844a",
+        "#f9c74f",
+        "#90be6d",
+        "#43aa8b",
+        "#4d908e",
+        "#94d2bd",
+        "#ef476f",
+        "#ffd166",
+        "#06d6a0",
+        "#118ab2",
+      ],
     });
+    const series = ref([]);
 
-    return { results, loading };
-  },
-  methods: {
-    onUpdateChart() {
+    const onUpdateChart = () => {
       onValue(reference(db), (snapshot) => {
         const data = snapshot.val();
-        this.loading = false;
+        loading.value = false;
 
         let _categories = [];
         let _series = [];
@@ -158,12 +145,10 @@ export default {
           }
         });
 
-        // console.log(_categories);
+        series.value = _series;
 
-        this.series = _series;
-
-        this.options = {
-          ...this.options,
+        options.value = {
+          ...options.value,
           ...{
             xaxis: {
               type: "datetime",
@@ -172,10 +157,13 @@ export default {
           },
         };
       });
-    },
-  },
-  created() {
-    this.onUpdateChart();
+    };
+
+    onMounted(async () => {
+      onUpdateChart();
+    });
+
+    return { loading, options, series };
   },
 };
 </script>

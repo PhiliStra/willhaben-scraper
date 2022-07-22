@@ -6,7 +6,7 @@
   directory = "functions"
 
 [functions."willhaben-database-scheduled"]
-  schedule = "5 * * * *"
+  schedule = "15 * * * *"
 
 [[redirects]]
   from = "/*"

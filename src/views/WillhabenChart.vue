@@ -67,6 +67,7 @@ import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import { ref as reference, onValue } from "firebase/database";
 import db from "../db/db";
+import endpoints from "../models/endpoints";
 // import { WillhabenService } from "../services/WillhabenService";
 
 export default {
@@ -79,6 +80,21 @@ export default {
         id: "willhaben",
         width: "100%",
         stacked: true,
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          barHeight: "90%",
+        },
+      },
+      dataLabels: {
+        enabled: true,
+        distributed: true,
+        style: {
+          fontSize: "12px",
+          fontFamily: "Avenir, Helvetica, Arial, sans-serif",
+          fontWeight: "400",
+        },
       },
       colors: [
         "#f94144",
@@ -106,52 +122,39 @@ export default {
         let _categories = [];
         let _series = [];
 
-        // console.log(data);
+        const years = Object.keys(data);
 
-        const _year = Object.keys(data);
-        const _month = Object.keys(data[_year]);
-        const _days = Object.keys(data[_year][_month]);
-        const _keys = Object.keys(data[_year][_month]["22"]["0"]);
-        // const _hours = Object.keys(data[_year][_month]["21"]);
+        endpoints.map((endpoint, index) => {
+          let tmp = {};
+          let tmpData = [];
+          tmp.name = endpoint.title;
 
-        /* _hours.map((category) => {
-          _categories.push(`21/7/2022/${category}`);
-        }); */
-
-        _days.map((category) => {
-          _categories.push(`7/${category}/2022`);
-        });
-
-        console.log(_days);
-
-        _keys.map((key) => {
-          let _tmp = {};
-          let _tmpData = [];
-          _tmp.name = key;
-
-          // console.log(key);
-
-          _days.map((category) => {
-            Object.entries(data["2022"]["7"][category]["0"]).map((item) => {
-              if (item[0] === key) {
-                // console.log(item[1]);
-                _tmpData.push(parseFloat(item[1]));
-              }
+          years.map((year) => {
+            Object.keys(data[year]).map((month) => {
+              Object.keys(data[year][month]).map((day) => {
+                if (index === 0) _categories.push(`${month}/${day}/${year}`);
+                Object.entries(data[year][month][day]["7"]).map((item) => {
+                  if (item[0] === endpoint.title) {
+                    tmpData.push(parseFloat(item[1]));
+                  }
+                });
+              });
             });
           });
-          _tmp.data = _tmpData;
-          if (key !== "Giwog") {
-            _series.push(_tmp);
+          tmp.data = tmpData;
+          if (endpoint.title !== "Giwog") {
+            _series.push(tmp);
           }
         });
 
         series.value = _series;
-
         options.value = {
           ...options.value,
           ...{
             xaxis: {
-              type: "datetime",
+              labels: {
+                format: "dd/MM",
+              },
               categories: _categories,
             },
           },

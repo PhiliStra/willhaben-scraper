@@ -60,70 +60,12 @@
 import { ref } from "@vue/reactivity";
 import { onBeforeMount } from "@vue/runtime-core";
 import WillhabenService from "../services/WillhabenService";
+import endpoints from "../models/endpoints";
 
 export default {
   name: "WillhabenUpdate",
   props: [],
   setup() {
-    const endpoints = [
-      {
-        title: "Mietwohnungen in L_nz",
-        url: "https://www.willhaben.at/iad/immobilien/mietwohnungen/oberoesterreich/linz",
-      },
-      {
-        title: "Eigentumswohnungen in L_nz",
-        url: "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
-      },
-      {
-        title: "OÖ Wohnbau",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=37441909&verticalId=2",
-      },
-      {
-        title: "WSG",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=29720423&verticalId=2",
-      },
-      {
-        title: "GWG Linz",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=28446133&verticalId=2",
-      },
-      {
-        title: "Lawog",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=17103067&verticalId=2",
-      },
-      {
-        title: "EBS",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=7091459&verticalId=2",
-      },
-      {
-        title: "GIWOG",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6912138&verticalId=2",
-      },
-      {
-        title: "Wohnbau 200",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6912076&verticalId=2",
-      },
-      {
-        title: "Neue Heimat",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6563419&verticalId=2",
-      },
-      {
-        title: "Familie",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=37609411&verticalId=2",
-      },
-      {
-        title: "Lebensräume",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6563410&verticalId=2",
-      },
-      {
-        title: "BRW",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6556903&verticalId=2",
-      },
-      {
-        title: "WAG",
-        url: "https://www.willhaben.at/iad/searchagent/alert?searchId=90&alertId=6556872&verticalId=2",
-      },
-    ];
-
     const loading = ref(true);
     const results = ref({});
 
@@ -148,16 +90,6 @@ export default {
           }
         })
       ).then(async () => {
-        /* try {
-          await fetch("/.netlify/functions/willhaben-database/", {
-            method: "POST",
-            body: JSON.stringify(_results),
-          });
-        } catch (err) {
-          console.log(err);
-          return null;
-        }*/
-
         await WillhabenService.create(_results)
           .then(() => {
             console.log("Created new item successfully!", _results);
@@ -166,9 +98,6 @@ export default {
             console.log(e);
           });
 
-        // await WillhabenService.getChildren(`/2022/07`);
-
-        // writeResults(results);
         loading.value = false;
         results.value = _results;
       });

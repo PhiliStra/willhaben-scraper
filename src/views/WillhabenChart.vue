@@ -55,17 +55,18 @@
       </circle>
     </svg>
   </div>
-  <apexchart
+  <VueApexCharts
     class="max-w-2xl px-4 flex w-full m-auto"
     type="bar"
     :options="options"
     :series="series"
-  ></apexchart>
+  ></VueApexCharts>
 </template>
 <script>
 import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import { ref as reference, onValue } from "firebase/database";
+import VueApexCharts from "vue3-apexcharts";
 import db from "../db/db";
 import endpoints from "../models/endpoints";
 // import { WillhabenService } from "../services/WillhabenService";
@@ -73,6 +74,9 @@ import endpoints from "../models/endpoints";
 export default {
   name: "WillhabenChart",
   props: [],
+  components: {
+    VueApexCharts,
+  },
   setup() {
     const loading = ref(true);
     const options = ref({

@@ -74,7 +74,6 @@ const handler = async function (req, res) {
       })
     ).then(async () => {
       await writeResults(_results);
-      app.deleteApp();
       return {
         statusCode: 200,
       };

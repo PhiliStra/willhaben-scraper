@@ -2,7 +2,7 @@
   <div class="inline relative">
     <!-- display targetURL link -->
     <a
-      class="overflow-hidden"
+      class="link"
       :href="targetURL"
       :target="previewData ? previewData.title : '_blank'"
     >
@@ -11,13 +11,13 @@
     <!-- display preview data if object exists -->
     <div
       v-if="previewData"
-      class="result-preview absolute top-8 left-0 transform translate-y-4 opacity-0 invisible transition bg-white overflow-hidden rounded-md shadow-lg z-10 w-full"
+      class="result-preview absolute top-8 left-1/2 transform translate-y-4 -translate-x-1/2 opacity-0 invisible transition bg-white overflow-hidden rounded-md shadow-lg z-10 w-72 md:w-[800px]"
     >
       <!-- display title and description -->
-      <div class="details p-4 text-left bg-blue-400 text-white">
+      <div class="p-4 text-left bg-white">
         <div class="flex justify-center" v-if="loading">
           <svg
-            class="w-16 -mr-8"
+            class="w-16 -mr-8 fill-current"
             version="1.1"
             id="L4"
             xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@
             enable-background="new 0 0 0 0"
             xml:space="preserve"
           >
-            <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+            <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
               <animate
                 attributeName="opacity"
                 dur="1s"
@@ -37,7 +37,7 @@
                 begin="0.1"
               />
             </circle>
-            <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
+            <circle class="fill-current" stroke="none" cx="26" cy="50" r="6">
               <animate
                 attributeName="opacity"
                 dur="1s"
@@ -46,7 +46,7 @@
                 begin="0.2"
               />
             </circle>
-            <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
+            <circle class="fill-current" stroke="none" cx="46" cy="50" r="6">
               <animate
                 attributeName="opacity"
                 dur="1s"
@@ -57,20 +57,17 @@
             </circle>
           </svg>
         </div>
-        <h1 class="font-extrabold text-xl text-center">
-          {{ previewData.pageTitle }}
+        <h1 class="font-extrabold text-xl text-center" v-if="previewData.title">
+          {{ previewData.title }}
         </h1>
-        <p v-if="previewData.description" class="text-center">
-          {{ previewData.description }}
-        </p>
+        <img
+          v-if="previewData.screenshot"
+          :src="`data:image/jpeg;base64,${previewData.screenshot}`"
+          :alt="previewData.description"
+          width="800"
+          height="600"
+        />
       </div>
-      <img
-        v-if="previewData.screenshot"
-        :src="`data:image/jpeg;base64,${previewData.screenshot}`"
-        :alt="previewData.description"
-        width="800"
-        height="600"
-      />
     </div>
   </div>
 </template>
@@ -90,11 +87,12 @@ export default {
     // function to send a POST request containing the targetURL to the serverless function
     const generatePreview = async () => {
       try {
-        const res = await fetch("/api/generate-preview/generate-preview.js", {
+        const res = await fetch("/.netlify/functions/willhaben-stats/", {
           method: "POST",
           body: JSON.stringify({
             title: "Mietwohnungen",
             targetURL: props.targetURL,
+            screenshot: true,
           }),
         });
 
@@ -111,6 +109,7 @@ export default {
         const res = await fetch("/.netlify/functions/willhaben-stats/", {
           method: "POST",
           body: JSON.stringify({
+            title: "Mietwohnungen Linz",
             url: props.targetURL,
             screenshot: true,
           }),
@@ -126,16 +125,8 @@ export default {
 
     // run function before component is mounted
     onBeforeMount(async () => {
-      // await getWillhabenStats();
-      // run generatePreview() to get the preview data and assign to previewData
-      // previewData.value = await generatePreview();
       previewData.value = await getWillhabenStats();
       loading.value = false;
-
-      // use object destructuring to get the different descriptions from the preview data
-      // const { desc, og, twitter } = previewData.value.descriptions;
-      // assign only one valid value to the description property in the previewData object
-      // previewData.value.description = desc || og || twitter || "";
     });
 
     // make the following entities available to the component
@@ -146,7 +137,7 @@ export default {
 
 <style scoped>
 .link:hover ~ .result-preview {
-  @apply visible opacity-100 translate-y-0;
+  @apply opacity-100 translate-y-0 visible !important;
 }
 .loading {
   width: 600px;

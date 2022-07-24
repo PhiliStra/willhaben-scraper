@@ -4,7 +4,7 @@ const puppeteer = require("puppeteer-core");
 exports.handler = async function (req, res) {
   let result = {};
 
-  const endpoint = JSON.parse(req.body);
+  const data = JSON.parse(req.body);
 
   const browser = await puppeteer.launch({
     args: chromium.args,
@@ -19,22 +19,23 @@ exports.handler = async function (req, res) {
 
   try {
     // navigate to the targetURL
-    await page.goto(endpoint.url, {
+    await page.goto(data.url, {
       timeout: 10 * 1000,
       waitUntil: "domcontentloaded",
     });
 
-    // get the title from the newly loaded page
-    const element = await page.waitForSelector("#result-list-title");
-    const value = await element.evaluate((el) => el.textContent);
-    let description = value.split(" ")[0];
-
-    result.description = description;
-    // result.title = value.substring(value.indexOf(" "));
-    result.title = endpoint.title;
     result.pageTitle = await page.title();
+    result.title = result.pageTitle;
 
-    if (endpoint.screenshot) {
+    if (data.url.match("www.willhaben.at/iad/immobilien/")) {
+      const element = await page.waitForSelector("#result-list-title");
+      const value = await element.evaluate((el) => el.textContent);
+      const description = value.split(" ")[0];
+      result.description = description;
+      result.title = data.title;
+    }
+
+    if (data.screenshot) {
       const screenshot = await page.screenshot({
         type: "jpeg",
         encoding: "base64",

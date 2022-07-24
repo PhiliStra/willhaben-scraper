@@ -8,7 +8,7 @@
         <h2>Miet- und Eigentumswohnungen</h2>
         <div class="flex w-full justify-center" v-if="loading">
           <svg
-            class="w-16 -mr-8 text-blue-500"
+            class="w-16 -mr-8"
             version="1.1"
             id="L4"
             xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@
         <h2>Genossenschaftswohnungen</h2>
         <div class="flex w-full justify-center" v-if="loading">
           <svg
-            class="w-16 -mr-8 text-blue-500"
+            class="w-16 -mr-8"
             version="1.1"
             id="L4"
             xmlns="http://www.w3.org/2000/svg"

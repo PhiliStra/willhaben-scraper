@@ -1,20 +1,10 @@
 <template>
   <nav
-    class="
-      bg-blue-500
-      text-white
-      h-24
-      mb-4
-      font-bold
-      text-2xl
-      items-center
-      justify-center
-      flex
-    "
+    class="bg-blue-500 text-white h-24 font-bold text-2xl items-center justify-center flex"
   >
     Willhaben
   </nav>
-  <router-view />
+  <div class="p-4"><router-view /></div>
 </template>
 
 <script>

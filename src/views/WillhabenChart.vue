@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full p-4 justify-center" v-if="loading">
+  <div class="flex w-full justify-center" v-if="loading">
     <svg
       class="w-16 -mr-8 text-blue-500"
       version="1.1"
@@ -56,6 +56,7 @@
     </svg>
   </div>
   <VueApexCharts
+    v-if="series.length"
     class="max-w-2xl px-4 flex w-full m-auto"
     type="bar"
     :options="options"
@@ -68,7 +69,7 @@ import { onMounted } from "@vue/runtime-core";
 import { ref as reference, onValue } from "firebase/database";
 import VueApexCharts from "vue3-apexcharts";
 import db from "../db/db";
-import endpoints from "../models/endpoints";
+import { endpoints } from "../models/endpoints";
 // import { WillhabenService } from "../services/WillhabenService";
 
 export default {

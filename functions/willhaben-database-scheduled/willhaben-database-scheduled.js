@@ -1,7 +1,7 @@
-const { initializeApp, deleteApp } = require("firebase/app");
+const { initializeApp } = require("firebase/app");
 const { getDatabase, ref, set } = require("firebase/database");
 const fetch = require("node-fetch");
-import endpoints from "../../src/models/endpoints";
+const { endpoints } = require("../../src/models/endpoints");
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {

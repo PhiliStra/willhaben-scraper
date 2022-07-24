@@ -21,7 +21,6 @@
     "vue-apexcharts": "^1.6.2",
     "vue-router": "^4.1.2",
     "vue3-apexcharts": "^1.4.1",
-    "vuefire": "^2.2.5",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

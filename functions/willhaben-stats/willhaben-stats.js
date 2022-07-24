@@ -32,13 +32,16 @@ exports.handler = async function (req, res) {
     result.description = description;
     // result.title = value.substring(value.indexOf(" "));
     result.title = endpoint.title;
+    result.pageTitle = await page.title();
 
-    /* const screenshot = await page.screenshot({
-      type: "jpeg",
-      encoding: "base64",
-    });
+    if (endpoint.screenshot) {
+      const screenshot = await page.screenshot({
+        type: "jpeg",
+        encoding: "base64",
+      });
 
-    result.screenshot = screenshot; */
+      result.screenshot = screenshot;
+    }
 
     // close the browser
     await browser.close();

@@ -1,67 +1,143 @@
 <template>
-  <div class="flex w-full justify-center" v-if="loading">
-    <svg
-      class="w-16 -mr-8 text-blue-500"
-      version="1.1"
-      id="L4"
-      xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      x="0px"
-      y="0px"
-      viewBox="0 0 100 100"
-      enable-background="new 0 0 0 0"
-      xml:space="preserve"
-    >
-      <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
-        <animate
-          attributeName="opacity"
-          dur="1s"
-          values="0;1;0"
-          repeatCount="indefinite"
-          begin="0.1"
-        />
-      </circle>
-      <circle
-        class="fill-current"
-        fill="#fff"
-        stroke="none"
-        cx="26"
-        cy="50"
-        r="6"
-      >
-        <animate
-          attributeName="opacity"
-          dur="1s"
-          values="0;1;0"
-          repeatCount="indefinite"
-          begin="0.2"
-        />
-      </circle>
-      <circle
-        class="fill-current"
-        fill="#fff"
-        stroke="none"
-        cx="46"
-        cy="50"
-        r="6"
-      >
-        <animate
-          attributeName="opacity"
-          dur="1s"
-          values="0;1;0"
-          repeatCount="indefinite"
-          begin="0.3"
-        />
-      </circle>
-    </svg>
-  </div>
-  <VueApexCharts
-    v-if="series.length"
-    class="max-w-2xl px-4 flex w-full m-auto"
-    type="bar"
-    :options="options"
-    :series="series"
-  ></VueApexCharts>
+  <article
+    class="prose-sm md:prose mt-12 flex justify-center flex-col max-w-none"
+  >
+    <h1>Willhaben Wohnungsmarkt Linz</h1>
+    <div class="grid md:grid-cols-2 gap-4 md:gap-8 w-full">
+      <section>
+        <h2>Miet- und Eigentumswohnungen</h2>
+        <div class="flex w-full justify-center" v-if="loading">
+          <svg
+            class="w-16 -mr-8 text-blue-500"
+            version="1.1"
+            id="L4"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 100 100"
+            enable-background="new 0 0 0 0"
+            xml:space="preserve"
+          >
+            <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.1"
+              />
+            </circle>
+            <circle
+              class="fill-current"
+              fill="#fff"
+              stroke="none"
+              cx="26"
+              cy="50"
+              r="6"
+            >
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.2"
+              />
+            </circle>
+            <circle
+              class="fill-current"
+              fill="#fff"
+              stroke="none"
+              cx="46"
+              cy="50"
+              r="6"
+            >
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.3"
+              />
+            </circle>
+          </svg>
+        </div>
+        <VueApexCharts
+          v-if="series.length"
+          class="max-w-4xl flex w-full"
+          type="bar"
+          :options="options"
+          :series="series"
+        ></VueApexCharts>
+      </section>
+      <section>
+        <h2>Genossenschaftswohnungen</h2>
+        <div class="flex w-full justify-center" v-if="loading">
+          <svg
+            class="w-16 -mr-8 text-blue-500"
+            version="1.1"
+            id="L4"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 100 100"
+            enable-background="new 0 0 0 0"
+            xml:space="preserve"
+          >
+            <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.1"
+              />
+            </circle>
+            <circle
+              class="fill-current"
+              fill="#fff"
+              stroke="none"
+              cx="26"
+              cy="50"
+              r="6"
+            >
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.2"
+              />
+            </circle>
+            <circle
+              class="fill-current"
+              fill="#fff"
+              stroke="none"
+              cx="46"
+              cy="50"
+              r="6"
+            >
+              <animate
+                attributeName="opacity"
+                dur="1s"
+                values="0;1;0"
+                repeatCount="indefinite"
+                begin="0.3"
+              />
+            </circle>
+          </svg>
+        </div>
+        <VueApexCharts
+          v-if="series.length"
+          class="max-w-4xl flex w-full"
+          type="bar"
+          :options="options"
+          :series="seriesCommunity"
+        ></VueApexCharts>
+      </section>
+    </div>
+  </article>
 </template>
 <script>
 import { ref } from "@vue/reactivity";
@@ -103,7 +179,7 @@ export default {
       },
       colors: [
         "#f94144",
-        "#f3722c",
+        "#c3722c",
         "#f8961e",
         "#f9844a",
         "#f9c74f",
@@ -118,6 +194,7 @@ export default {
       ],
     });
     const series = ref([]);
+    const seriesCommunity = ref([]);
 
     const onUpdateChart = () => {
       onValue(reference(db), (snapshot) => {
@@ -126,6 +203,7 @@ export default {
 
         let _categories = [];
         let _series = [];
+        let _seriesCommunity = [];
 
         const years = Object.keys(data);
 
@@ -147,12 +225,22 @@ export default {
             });
           });
           tmp.data = tmpData;
-          if (endpoint.title !== "Giwog") {
+
+          if (
+            endpoint.title === "Mietwohnungen in L_nz" ||
+            endpoint.title === "Eigentumswohnungen in L_nz"
+          ) {
             _series.push(tmp);
+          } else if (
+            endpoint.title !== "Mietwohnungen in L_nz" ||
+            endpoint.title !== "Eigentumswohnungen in L_nz"
+          ) {
+            _seriesCommunity.push(tmp);
           }
         });
 
         series.value = _series;
+        seriesCommunity.value = _seriesCommunity;
         options.value = {
           ...options.value,
           ...{
@@ -171,7 +259,7 @@ export default {
       onUpdateChart();
     });
 
-    return { loading, options, series };
+    return { loading, options, series, seriesCommunity };
   },
 };
 </script>

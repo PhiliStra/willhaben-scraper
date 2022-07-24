@@ -2,7 +2,7 @@
   <div class="inline relative">
     <!-- display targetURL link -->
     <a
-      class="link underline text-blue-600"
+      class="overflow-hidden"
       :href="targetURL"
       :target="previewData ? previewData.title : '_blank'"
     >
@@ -11,23 +11,7 @@
     <!-- display preview data if object exists -->
     <div
       v-if="previewData"
-      class="
-        result-preview
-        absolute
-        top-8
-        left-0
-        transform
-        translate-y-4
-        opacity-0
-        invisible
-        transition
-        bg-white
-        overflow-hidden
-        rounded-md
-        shadow-lg
-        z-10
-        w-full
-      "
+      class="result-preview absolute top-8 left-0 transform translate-y-4 opacity-0 invisible transition bg-white overflow-hidden rounded-md shadow-lg z-10 w-full"
     >
       <!-- display title and description -->
       <div class="details p-4 text-left bg-blue-400 text-white">
@@ -74,9 +58,11 @@
           </svg>
         </div>
         <h1 class="font-extrabold text-xl text-center">
-          {{ previewData.title }}
+          {{ previewData.pageTitle }}
         </h1>
-        <p class="text-center">{{ previewData.description }}</p>
+        <p v-if="previewData.description" class="text-center">
+          {{ previewData.description }}
+        </p>
       </div>
       <img
         v-if="previewData.screenshot"
@@ -125,13 +111,12 @@ export default {
         const res = await fetch("/.netlify/functions/willhaben-stats/", {
           method: "POST",
           body: JSON.stringify({
-            title: "Mietwohnungen Linz",
             url: props.targetURL,
+            screenshot: true,
           }),
         });
 
         const data = await res.json();
-        console.info(data);
         return data;
       } catch (err) {
         console.log(err);
@@ -147,7 +132,6 @@ export default {
       previewData.value = await getWillhabenStats();
       loading.value = false;
 
-      console.log(previewData);
       // use object destructuring to get the different descriptions from the preview data
       // const { desc, og, twitter } = previewData.value.descriptions;
       // assign only one valid value to the description property in the previewData object

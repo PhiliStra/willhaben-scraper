@@ -60,7 +60,7 @@
 import { ref } from "@vue/reactivity";
 import { onBeforeMount } from "@vue/runtime-core";
 import WillhabenService from "../services/WillhabenService";
-import endpoints from "../models/endpoints";
+import { endpoints } from "../models/endpoints";
 
 export default {
   name: "WillhabenUpdate",

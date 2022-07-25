@@ -27,7 +27,7 @@ exports.handler = async function (req, res) {
     result.pageTitle = await page.title();
     result.title = result.pageTitle;
 
-    if (data.url.match("www.willhaben.at/iad/immobilien/")) {
+    if (data.url.match("www.willhaben.at/iad/")) {
       const element = await page.waitForSelector("#result-list-title");
       const value = await element.evaluate((el) => el.textContent);
       const description = value.split(" ")[0];

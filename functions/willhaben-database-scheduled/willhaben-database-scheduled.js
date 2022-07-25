@@ -25,8 +25,7 @@ async function writeResults(result) {
   set(
     ref(
       db,
-      `${date.getFullYear()}/${
-        date.getMonth() + 1
+      `${date.getFullYear()}/${date.getMonth() + 1
       }/${date.getDate()}/${date.getHours()}`
     ),
     result
@@ -35,8 +34,7 @@ async function writeResults(result) {
       console.log(
         "Data saved successfully!",
         result,
-        `${date.getFullYear()}/${
-          date.getMonth() + 1
+        `${date.getFullYear()}/${date.getMonth() + 1
         }/${date.getDate()}/${date.getHours()}`
       );
     })
@@ -66,7 +64,7 @@ const handler = async function (req, res) {
           );
 
           const data = await res.json();
-          _results[data.title] = data.description;
+          _results[endpoint.title] = data.description;
         } catch (err) {
           console.log(err);
           return null;

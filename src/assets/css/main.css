@@ -6,6 +6,10 @@ body {
   @apply bg-gray-50;
 }
 
+a {
+  @apply focus-visible:outline-none focus-visible:bg-slate-200 focus-visible:bg-opacity-80;
+}
+
 .router-link-active {
   @apply underline;
 }

@@ -1,6 +1,6 @@
 <template>
   <article class="mt-12">
-    <section class="prose max-w-none mx-auto">
+    <section class="prose-sm md:prose max-w-none mx-auto">
       <h1>Link Scraper</h1>
       <p>
         Enter a valid link, hover over the link and get ready for sUrPrIsE...
@@ -20,7 +20,7 @@
 
       <!-- input field to add new links -->
       <input
-        class="mt-6 p-2 ring ring-blue-600 rounded-lg shadow-md w-2/3 text-center"
+        class="w-full md:w-2/3 mt-6 p-2 focus:outline-none focus-visible:ring focus-visible:ring-gray-600 rounded-lg shadow text-center"
         type="url"
         @keyup.enter="addLink"
         required

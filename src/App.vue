@@ -5,7 +5,8 @@
     <div class="container mx-auto px-4 w-full text-left flex items-center">
       <router-link to="/" class="flex mr-8">
         <svg
-          class="h-6 fill-current mr-2"
+          class="h-6 fill-current mr-2 stroke-current"
+          stroke-width="4"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="-0.56 0 171.265 171.265"
         >
@@ -21,9 +22,9 @@
               d="M591.8,1017.423a19.372,19.372,0,0,0-5.711-13.787l-.707-.709a19.5,19.5,0,0,0-27.578,0l-40.61,40.61c-25.274-2.8-61.3,14.466-92.591,44.575l-2.94,2.828,77.541,77.54,2.827-2.939c30.688-31.9,48.212-69.5,44.308-94.58l39.75-39.75A19.373,19.373,0,0,0,591.8,1017.423Zm-52.871,60.949c.113,21.706-14.987,51.8-39.863,78.658l-65.951-65.951c25.689-23.775,54.811-38.8,76.333-39.794l-7.859,7.859,28.285,28.283Zm41.5-52.817-50.558,50.56L512.9,1059.144l50.559-50.559a11.5,11.5,0,0,1,16.262,0l.708.709a11.5,11.5,0,0,1,0,16.263Z"
             />
           </g></svg
-        ><span class="text-base font-medium">Scraper</span>
+        ><span class="text-base font-bold">Scraper</span>
       </router-link>
-      <div class="space-x-4 font-bold">
+      <div class="space-x-4 font-medium">
         <router-link to="/chart" class="hover:underline">Chart</router-link>
         <router-link to="/scraper" class="hover:underline">Link</router-link>
       </div>

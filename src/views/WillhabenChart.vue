@@ -1,6 +1,6 @@
 <template>
   <article class="prose-sm md:prose mt-12 max-w-none">
-    <h1>Willhaben Wohnungsmarkt Linz</h1>
+    <h1>Willhaben Wohnungsmarkt OÖ</h1>
     <section class="button-group hidden">
       <button
         class="button button-active"
@@ -182,6 +182,7 @@ import VChart, { THEME_KEY, INIT_OPTIONS_KEY } from "vue-echarts";
 
 import db from "../db/db";
 import { endpoints } from "../models/endpoints";
+import essos from "../assets/essos.json";
 
 use([
   CanvasRenderer,
@@ -199,7 +200,7 @@ export default {
     VChart,
   },
   provide: {
-    [THEME_KEY]: "light",
+    [THEME_KEY]: essos,
     [INIT_OPTIONS_KEY]: { opts: { renderer: "svg" } },
   },
   setup() {

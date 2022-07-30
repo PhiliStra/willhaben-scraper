@@ -3,5 +3,6 @@ module.exports = {
     workboxOptions: {
       exclude: [/_redirects/],
     },
+    themeColor: "#F9FAFB",
   },
 };

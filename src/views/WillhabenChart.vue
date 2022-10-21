@@ -224,6 +224,23 @@ export default {
         // chartHeight.value = _categories.length * 44;
         chartHeight.value = 300;
 
+        let max = 0;
+        let min = 0;
+
+        _series.forEach(serie => {
+          let maxTmp = Math.max(...serie.data);
+          let minTmp = Math.min(...serie.data);
+
+          if (maxTmp > max) {
+            max = maxTmp;
+          }
+
+          if (minTmp < max) {
+            min = minTmp;
+          }
+        })
+        console.log(min, max);
+
         series.value = _series;
         seriesCommunity.value = _seriesCommunity;
 
@@ -233,6 +250,10 @@ export default {
             xAxis: {
               type: "category",
               data: _categories,
+            },
+            yAxis: {
+              min: min - 10,
+              max: max + 10
             },
             series: _series,
           },

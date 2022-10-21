@@ -2,25 +2,18 @@
   <article class="prose-sm md:prose mt-12 max-w-none">
     <h1>Willhaben Wohnungsmarkt OÖ</h1>
     <section class="button-group hidden">
-      <button
-        class="button button-active"
-        @click="
-          setChart({
-            stackType: '',
-            type: 'bar',
-          })
-        "
-      >
-        Absolute</button
-      ><button
-        class="button"
-        @click="
+      <button class="button button-active" @click="
+        setChart({
+          stackType: '',
+          type: 'bar',
+        })
+      ">
+        Absolute</button><button class="button" @click="
           setChart({
             stackType: '100%',
             type: 'line',
           })
-        "
-      >
+        ">
         Percentage
       </button>
     </section>
@@ -28,136 +21,44 @@
       <section>
         <h2>Miet- und Eigentumswohnungen</h2>
         <div class="flex w-full justify-center" v-if="loading">
-          <svg
-            class="w-16 -mr-8"
-            version="1.1"
-            id="L4"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            viewBox="0 0 100 100"
-            enable-background="new 0 0 0 0"
-            xml:space="preserve"
-          >
+          <svg class="w-16 -mr-8" version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
+            enable-background="new 0 0 0 0" xml:space="preserve">
             <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.1"
-              />
+              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
             </circle>
-            <circle
-              class="fill-current"
-              fill="#fff"
-              stroke="none"
-              cx="26"
-              cy="50"
-              r="6"
-            >
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.2"
-              />
+            <circle class="fill-current" fill="#fff" stroke="none" cx="26" cy="50" r="6">
+              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.2" />
             </circle>
-            <circle
-              class="fill-current"
-              fill="#fff"
-              stroke="none"
-              cx="46"
-              cy="50"
-              r="6"
-            >
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.3"
-              />
+            <circle class="fill-current" fill="#fff" stroke="none" cx="46" cy="50" r="6">
+              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.3" />
             </circle>
           </svg>
         </div>
-        <div
-          v-if="chartHeight > 0"
-          ref="vChartContainer"
-          v-resize="onEChartResize"
-          class="w-full mt-8 pr-4 md:pr-0"
-          :style="{ height: chartHeight + 'px' }"
-        >
+        <div v-if="chartHeight > 0" ref="vChartContainer" v-resize="onEChartResize" class="w-full mt-8 pr-4 md:pr-0"
+          :style="{ height: chartHeight + 'px' }">
           <v-chart ref="vChart" :option="echartOptions" />
         </div>
       </section>
       <section>
         <h2>Genossenschaftswohnungen</h2>
         <div class="flex w-full justify-center" v-if="loading">
-          <svg
-            class="w-16 -mr-8"
-            version="1.1"
-            id="L4"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            viewBox="0 0 100 100"
-            enable-background="new 0 0 0 0"
-            xml:space="preserve"
-          >
+          <svg class="w-16 -mr-8" version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
+            enable-background="new 0 0 0 0" xml:space="preserve">
             <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.1"
-              />
+              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
             </circle>
-            <circle
-              class="fill-current"
-              fill="#fff"
-              stroke="none"
-              cx="26"
-              cy="50"
-              r="6"
-            >
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.2"
-              />
+            <circle class="fill-current" fill="#fff" stroke="none" cx="26" cy="50" r="6">
+              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.2" />
             </circle>
-            <circle
-              class="fill-current"
-              fill="#fff"
-              stroke="none"
-              cx="46"
-              cy="50"
-              r="6"
-            >
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.3"
-              />
+            <circle class="fill-current" fill="#fff" stroke="none" cx="46" cy="50" r="6">
+              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.3" />
             </circle>
           </svg>
         </div>
-        <div
-          v-if="chartHeight > 0"
-          ref="vChartCommunityContainer"
-          v-resize="onEChartCommunityResize"
-          class="w-full mt-8 pr-4 md:pr-0"
-          :style="{ height: chartHeight + 'px' }"
-        >
+        <div v-if="chartHeight > 0" ref="vChartCommunityContainer" v-resize="onEChartCommunityResize"
+          class="w-full mt-8 pr-4 md:pr-0" :style="{ height: chartHeight + 'px' }">
           <v-chart ref="vChartCommunity" :option="echartOptionsCommunity" />
         </div>
       </section>
@@ -171,7 +72,7 @@ import { ref as reference, onValue } from "firebase/database";
 
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BarChart } from "echarts/charts";
+import { BarChart, LineChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
@@ -187,6 +88,7 @@ import essos from "../assets/essos.json";
 use([
   CanvasRenderer,
   BarChart,
+  LineChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
@@ -231,10 +133,10 @@ export default {
         bottom: "3%",
         containLabel: true,
       },
-      xAxis: {
+      yAxis: {
         type: "value",
       },
-      yAxis: {
+      xAxis: {
         type: "category",
         data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       },
@@ -256,10 +158,10 @@ export default {
         bottom: "3%",
         containLabel: true,
       },
-      xAxis: {
+      yAxis: {
         type: "value",
       },
-      yAxis: {
+      xAxis: {
         type: "category",
         data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       },
@@ -281,8 +183,8 @@ export default {
           let tmp = {};
           let tmpData = [];
           tmp.name = endpoint.title;
-          tmp.type = "bar";
-          tmp.stack = "total";
+          tmp.type = "line";
+          // tmp.stack = "Total";
           tmp.label = {
             show: true,
           };
@@ -319,14 +221,16 @@ export default {
           }
         });
 
-        chartHeight.value = _categories.length * 44;
+        // chartHeight.value = _categories.length * 44;
+        chartHeight.value = 300;
+
         series.value = _series;
         seriesCommunity.value = _seriesCommunity;
 
         echartOptions.value = {
           ...echartOptions.value,
           ...{
-            yAxis: {
+            xAxis: {
               type: "category",
               data: _categories,
             },
@@ -338,7 +242,7 @@ export default {
           ...echartOptionsCommunity.value,
           ...{
             legend: { type: "scroll" },
-            yAxis: {
+            xAxis: {
               type: "category",
               data: _categories,
             },
@@ -383,8 +287,10 @@ export default {
 .button-group {
   @apply inline-flex bg-gray-100 rounded-lg overflow-hidden;
 }
+
 .button {
   @apply px-4 py-3;
+
   &-active,
   &:hover {
     @apply bg-gray-200;

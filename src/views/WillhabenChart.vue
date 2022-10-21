@@ -239,7 +239,6 @@ export default {
             min = minTmp;
           }
         })
-        console.log(min, max);
 
         series.value = _series;
         seriesCommunity.value = _seriesCommunity;

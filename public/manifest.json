@@ -450,6 +450,12 @@
         {
             "src": "./img/icons/ios/1024.png",
             "sizes": "1024x1024"
+        },
+        {
+            "src": "./img/icons/maskable_icon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "start_url": ".",

@@ -1,74 +1,25 @@
 <template>
   <div class="inline relative">
     <!-- display targetURL link -->
-    <a
-      class="link break-words"
-      :href="targetURL"
-      :target="previewData ? previewData.title : '_blank'"
-      @mouseover="togglePreview"
-      @mouseout="togglePreview"
-    >
+    <a class="link break-words" :href="targetURL" :target="previewData ? previewData.title : '_blank'"
+      @mouseover="togglePreview" @mouseout="togglePreview">
       {{ targetURL }}
     </a>
     <!-- display preview data if object exists -->
-    <div
-      v-if="previewData && showPreview"
-      class="result-preview absolute top-8 left-1/2 transform translate-y-4 -translate-x-1/2 opacity-0 invisible transition bg-white overflow-hidden rounded-md shadow-lg z-10 w-72 md:w-[800px]"
-    >
+    <div v-if="previewData && showPreview"
+      class="result-preview absolute top-8 left-1/2 transform translate-y-4 -translate-x-1/2 opacity-0 invisible transition bg-white overflow-hidden rounded-md shadow-lg z-10 w-72 md:w-[800px]">
       <!-- display title and description -->
       <div class="p-4 text-left bg-white">
         <div class="flex justify-center" v-if="loading">
-          <svg
-            class="w-16 -mr-8 fill-current"
-            version="1.1"
-            id="L4"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            viewBox="0 0 100 100"
-            enable-background="new 0 0 0 0"
-            xml:space="preserve"
-          >
-            <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.1"
-              />
-            </circle>
-            <circle class="fill-current" stroke="none" cx="26" cy="50" r="6">
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.2"
-              />
-            </circle>
-            <circle class="fill-current" stroke="none" cx="46" cy="50" r="6">
-              <animate
-                attributeName="opacity"
-                dur="1s"
-                values="0;1;0"
-                repeatCount="indefinite"
-                begin="0.3"
-              />
-            </circle>
-          </svg>
+          <div class="w-16 fill-current">
+            <WillhabenSkeleton></WillhabenSkeleton>
+          </div>
         </div>
         <h1 class="font-extrabold text-xl text-center" v-if="previewData.title">
           {{ previewData.title }}
         </h1>
-        <img
-          v-if="previewData.screenshot"
-          :src="`data:image/jpeg;base64,${previewData.screenshot}`"
-          :alt="previewData.description"
-          width="800"
-          height="600"
-        />
+        <img v-if="previewData.screenshot" :src="`data:image/jpeg;base64,${previewData.screenshot}`"
+          :alt="previewData.description" width="800" height="600" />
       </div>
     </div>
   </div>
@@ -76,10 +27,14 @@
 
 <script>
 import { onBeforeMount, ref } from "@vue/runtime-core";
+import WillhabenSkeleton from "./WillhabenSkeleton.vue"
 
 export default {
   // define targetURL as a prop
   props: ["targetURL"],
+  components: {
+    WillhabenSkeleton,
+  },
 
   setup(props) {
     // create a reactive previewData object using ref
@@ -152,9 +107,10 @@ export default {
 </script>
 
 <style scoped>
-.link:hover ~ .result-preview {
+.link:hover~.result-preview {
   @apply opacity-100 translate-y-0 visible !important;
 }
+
 .loading {
   width: 600px;
 }

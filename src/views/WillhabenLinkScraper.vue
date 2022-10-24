@@ -9,11 +9,7 @@
     <section class="mt-8">
       <ul class="space-y-1">
         <!-- render LinkPreviewer component for each demolink -->
-        <li
-          class="font-bold hover:underline"
-          v-for="link in demoLinks"
-          :key="link"
-        >
+        <li class="font-bold hover:underline" v-for="link in demoLinks" :key="link">
           <link-previewer :targetURL="link" />
         </li>
       </ul>
@@ -21,11 +17,7 @@
       <!-- input field to add new links -->
       <input
         class="w-full md:w-2/3 mt-6 p-2 focus:outline-none focus-visible:ring focus-visible:ring-gray-600 rounded-lg shadow text-center"
-        type="url"
-        @keyup.enter="addLink"
-        required
-        placeholder="enter valid url"
-      />
+        type="url" @keyup.enter="addLink" required placeholder="enter valid url" />
     </section>
   </article>
 </template>
@@ -40,6 +32,7 @@ export default {
   setup() {
     const demoLinks = ref([
       "https://www.willhaben.at/iad/immobilien/mietwohnungen/oberoesterreich/linz",
+      "https://www.willhaben.at/iad/immobilien/eigentumswohnung/oberoesterreich/linz",
     ]);
 
     // function to add new links to the demoLinks array

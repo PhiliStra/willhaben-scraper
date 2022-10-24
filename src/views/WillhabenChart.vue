@@ -20,20 +20,8 @@
     <div class="grid lg:grid-cols-2 gap-4 md:gap-8 w-full">
       <section>
         <h2>Miet- und Eigentumswohnungen</h2>
-        <div class="flex w-full justify-center" v-if="loading">
-          <svg class="w-16 -mr-8" version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
-            enable-background="new 0 0 0 0" xml:space="preserve">
-            <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
-              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
-            </circle>
-            <circle class="fill-current" fill="#fff" stroke="none" cx="26" cy="50" r="6">
-              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.2" />
-            </circle>
-            <circle class="fill-current" fill="#fff" stroke="none" cx="46" cy="50" r="6">
-              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.3" />
-            </circle>
-          </svg>
+        <div class="flex w-full justify-center h-80 p-32" v-if="loading">
+          <WillhabenSkeleton></WillhabenSkeleton>
         </div>
         <div v-if="chartHeight > 0" ref="vChartContainer" v-resize="onEChartResize" class="w-full mt-8 pr-4 md:pr-0"
           :style="{ height: chartHeight + 'px' }">
@@ -42,20 +30,8 @@
       </section>
       <section>
         <h2>Genossenschaftswohnungen</h2>
-        <div class="flex w-full justify-center" v-if="loading">
-          <svg class="w-16 -mr-8" version="1.1" id="L4" xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"
-            enable-background="new 0 0 0 0" xml:space="preserve">
-            <circle class="fill-current" stroke="none" cx="6" cy="50" r="6">
-              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.1" />
-            </circle>
-            <circle class="fill-current" fill="#fff" stroke="none" cx="26" cy="50" r="6">
-              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.2" />
-            </circle>
-            <circle class="fill-current" fill="#fff" stroke="none" cx="46" cy="50" r="6">
-              <animate attributeName="opacity" dur="1s" values="0;1;0" repeatCount="indefinite" begin="0.3" />
-            </circle>
-          </svg>
+        <div class="flex w-full justify-center h-80 p-32" v-if="loading">
+          <WillhabenSkeleton></WillhabenSkeleton>
         </div>
         <div v-if="chartHeight > 0" ref="vChartCommunityContainer" v-resize="onEChartCommunityResize"
           class="w-full mt-8 pr-4 md:pr-0" :style="{ height: chartHeight + 'px' }">
@@ -80,6 +56,8 @@ import {
   GridComponent,
 } from "echarts/components";
 import VChart, { THEME_KEY, INIT_OPTIONS_KEY } from "vue-echarts";
+import WillhabenSkeleton from '../components/WillhabenSkeleton.vue'
+
 
 import db from "../db/db";
 import { endpoints } from "../models/endpoints";
@@ -100,6 +78,7 @@ export default {
   props: [],
   components: {
     VChart,
+    WillhabenSkeleton,
   },
   provide: {
     [THEME_KEY]: essos,
@@ -185,6 +164,7 @@ export default {
           tmp.name = endpoint.title;
           tmp.type = "line";
           // tmp.stack = "Total";
+          tmp.smooth = true;
           tmp.label = {
             show: true,
           };
@@ -222,7 +202,7 @@ export default {
         });
 
         // chartHeight.value = _categories.length * 44;
-        chartHeight.value = 300;
+        chartHeight.value = 320;
 
         let max = 0;
         let min = 0;

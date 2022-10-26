@@ -30,7 +30,7 @@
                 <path vector-effect="non-scaling-stroke" d="m80 440 160-160 80 120 200-200" stroke-width="1.5"
                   stroke-linecap="round" stroke-linejoin="round" fill="none" />
               </svg>
-              <span class="text-xs md:text-base tracking-wide md:ml-1">Chart</span>
+              <span class="text-xs font-semibold md:font-medium md:text-base tracking-wide md:ml-1">Chart</span>
             </span>
           </router-link>
           <router-link to="/scraper" class="">
@@ -42,7 +42,7 @@
                   stroke-linecap="round" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10"
                   fill="none" />
               </svg>
-              <span class="text-xs md:text-base tracking-wide md:ml-1">Scrape</span>
+              <span class="text-xs font-semibold md:font-medium md:text-base tracking-wide md:ml-1">Scrape</span>
             </span>
           </router-link>
         </div>

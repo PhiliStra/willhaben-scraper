@@ -1,6 +1,6 @@
 <template>
   <article class="prose-sm md:prose mt-4 md:mt-12 max-w-none">
-    <h1>Willhaben Wohnungsmarkt OÖ</h1>
+    <h1 id="willhaben-wohnungsmarkt-oö">Willhaben Wohnungsmarkt OÖ</h1>
     <section class="button-group hidden">
       <button class="button button-active" @click="
         setChart({
@@ -19,7 +19,7 @@
     </section>
     <div class="grid lg:grid-cols-2 gap-4 md:gap-8 w-full">
       <section>
-        <h2>Miet- und Eigentumswohnungen</h2>
+        <h2 id="miet-und-eigentumswohnungen">Miet- und Eigentumswohnungen</h2>
         <div class="mt-8 pr-4 md:pr-0">
           <WillhabenFadeTransition>
             <div class="flex w-full justify-center h-80 p-20" v-if="loading">
@@ -35,7 +35,7 @@
         </div>
       </section>
       <section>
-        <h2>Genossenschaftswohnungen</h2>
+        <h2 id="genossenschaftswohnungen">Genossenschaftswohnungen</h2>
         <div class="mt-8 pr-4 md:pr-0">
           <WillhabenFadeTransition>
             <div class="flex w-full justify-center h-80 p-20" v-if="loading">

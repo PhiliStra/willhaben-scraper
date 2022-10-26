@@ -20,6 +20,16 @@ const routes = [
 ];
 
 const router = createRouter({
+  scrollBehavior(to) {
+    if (to.hash) {
+      // BEFORE:
+      // return { selector: to.hash }
+
+      return { el: to.hash };
+    } else {
+      return { top: 0 };
+    }
+  },
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });

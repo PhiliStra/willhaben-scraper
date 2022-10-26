@@ -23,8 +23,8 @@
           <span class="text-base font-medium inline-block ml-1">Scraper</span>
         </router-link>
         <div class="flex space-x-4 font-medium">
-          <router-link to="/chart" class="p-2">
-            <span class="flex justify-center items-center flex-col md:flex-row">
+          <router-link to="/chart" class="">
+            <span class="flex justify-center items-center flex-col md:flex-row min-w-14 min-h-14 p-2">
               <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
                 viewBox="0 0 600 600">
                 <path vector-effect="non-scaling-stroke" d="m80 440 160-160 80 120 200-200" stroke-width="2"
@@ -33,8 +33,8 @@
               <span class="text-xs md:text-base">Chart</span>
             </span>
           </router-link>
-          <router-link to="/scraper" class="p-2">
-            <span class="flex justify-center items-center flex-col md:flex-row">
+          <router-link to="/scraper" class="">
+            <span class="flex justify-center items-center flex-col md:flex-row min-w-14 min-h-14 p-2">
               <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
                 viewBox="0 0 600 600">
                 <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"

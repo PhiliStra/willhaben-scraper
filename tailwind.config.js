@@ -6,6 +6,12 @@ module.exports = {
       colors: {
         primary: "rgba(67, 170, 139)",
       },
+      minWidth: {
+        14: "3.5rem",
+      },
+      minHeight: {
+        14: "3.5rem",
+      },
     },
   },
   variants: {

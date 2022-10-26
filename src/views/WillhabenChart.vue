@@ -1,5 +1,5 @@
 <template>
-  <article class="prose-sm md:prose mt-12 max-w-none">
+  <article class="prose-sm md:prose mt-4 md:mt-12 max-w-none">
     <h1>Willhaben Wohnungsmarkt OÖ</h1>
     <section class="button-group hidden">
       <button class="button button-active" @click="
@@ -20,8 +20,8 @@
     <div class="grid lg:grid-cols-2 gap-4 md:gap-8 w-full">
       <section>
         <h2>Miet- und Eigentumswohnungen</h2>
-        <div class="flex w-full justify-center h-80 p-32" v-if="loading">
-          <WillhabenSkeleton></WillhabenSkeleton>
+        <div class="flex w-full justify-center h-80 p-20" v-if="loading">
+          <WillhabenLineChartLoader />
         </div>
         <div v-if="chartHeight > 0" ref="vChartContainer" v-resize="onEChartResize" class="w-full mt-8 pr-4 md:pr-0"
           :style="{ height: chartHeight + 'px' }">
@@ -30,8 +30,8 @@
       </section>
       <section>
         <h2>Genossenschaftswohnungen</h2>
-        <div class="flex w-full justify-center h-80 p-32" v-if="loading">
-          <WillhabenSkeleton></WillhabenSkeleton>
+        <div class="flex w-full justify-center h-80 p-20" v-if="loading">
+          <WillhabenLineChartLoader />
         </div>
         <div v-if="chartHeight > 0" ref="vChartCommunityContainer" v-resize="onEChartCommunityResize"
           class="w-full mt-8 pr-4 md:pr-0" :style="{ height: chartHeight + 'px' }">
@@ -56,8 +56,7 @@ import {
   GridComponent,
 } from "echarts/components";
 import VChart, { THEME_KEY, INIT_OPTIONS_KEY } from "vue-echarts";
-import WillhabenSkeleton from '../components/WillhabenSkeleton.vue'
-
+import WillhabenLineChartLoader from '../components/WillhabenLineChartLoader.vue'
 
 import db from "../db/db";
 import { endpoints } from "../models/endpoints";
@@ -78,7 +77,7 @@ export default {
   props: [],
   components: {
     VChart,
-    WillhabenSkeleton,
+    WillhabenLineChartLoader
   },
   provide: {
     [THEME_KEY]: essos,

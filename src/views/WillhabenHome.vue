@@ -1,5 +1,5 @@
 <template>
-  <article class="prose-sm md:prose mt-12 mx-auto">
+  <article class="prose-sm md:prose mt-4 md:mt-12 mx-auto">
     <h1>Willhaben Scraper</h1>
     <section>
       <h2>Who am i?</h2>
@@ -23,7 +23,8 @@
       </ul>
       </p>
       <h3>What's the deal?</h3>
-      <p>Coming back to Willhaben: We are fetching the data from the database, transform it, and show it inside the <router-link to="/chart" class="hover:underline">chart
+      <p>Coming back to Willhaben: We are fetching the data from the database, transform it, and show it inside the
+        <router-link to="/chart" class="hover:underline">chart
         </router-link> section...</p>
     </section>
   </article>

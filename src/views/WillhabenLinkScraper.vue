@@ -1,5 +1,5 @@
 <template>
-  <article class="mt-12">
+  <article class="mt-4 md:mt-12">
     <section class="prose-sm md:prose max-w-none mx-auto">
       <h1>Link Scraper</h1>
       <p>

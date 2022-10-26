@@ -60,7 +60,7 @@ import { ref as reference, onValue } from "firebase/database";
 
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BarChart, LineChart } from "echarts/charts";
+import { LineChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
@@ -77,7 +77,6 @@ import essos from "../assets/essos.json";
 
 use([
   CanvasRenderer,
-  BarChart,
   LineChart,
   TitleComponent,
   TooltipComponent,

@@ -1,23 +1,55 @@
 <template>
-  <nav class="bg-gray-50 w-full h-16 sticky top-0 z-10 items-center justify-center flex">
-    <div class="container mx-auto px-4 w-full justify-between flex items-center">
-      <router-link to="/" class="flex mr-8">
-        <svg class="h-6 fill-current mr-2 stroke-current" stroke-width="4" xmlns="http://www.w3.org/2000/svg"
-          viewBox="-0.56 0 171.265 171.265">
-          <g id="scraper" transform="translate(-421.662 -997.216)">
-            <path id="Path_105" data-name="Path 105" d="M567.7,1015.657a4,4,0,1,0,5.656,0A4,4,0,0,0,567.7,1015.657Z" />
-            <path id="Path_106" data-name="Path 106"
-              d="M591.8,1017.423a19.372,19.372,0,0,0-5.711-13.787l-.707-.709a19.5,19.5,0,0,0-27.578,0l-40.61,40.61c-25.274-2.8-61.3,14.466-92.591,44.575l-2.94,2.828,77.541,77.54,2.827-2.939c30.688-31.9,48.212-69.5,44.308-94.58l39.75-39.75A19.373,19.373,0,0,0,591.8,1017.423Zm-52.871,60.949c.113,21.706-14.987,51.8-39.863,78.658l-65.951-65.951c25.689-23.775,54.811-38.8,76.333-39.794l-7.859,7.859,28.285,28.283Zm41.5-52.817-50.558,50.56L512.9,1059.144l50.559-50.559a11.5,11.5,0,0,1,16.262,0l.708.709a11.5,11.5,0,0,1,0,16.263Z" />
-          </g>
-        </svg><span class="text-base font-bold">Scraper</span>
+  <nav class="nav relative">
+    <div
+      class="container mx-auto px-4 w-full justify-start flex items-center md:hidden h-16 sticky z-10 top-0 bg-gray-50">
+      <router-link to="/" class="flex mr-8 items-center p-2">
+        <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+          viewBox="0 0 600 600">
+          <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"
+            d="m79.9 148-57-57C45.4 68.5 72 56.8 90.3 59.5L122 27.8c6-6 15.8-6 21.8 0s6 15.8 0 21.8l-32.3 32.3c2 18.3-9.7 44.2-31.6 66.1zm10.4-88.5-9.5 12.8c-1.7 2.3-1.5 5.6.6 7.7l10.1 10c2 2 5.2 2.3 7.5.7l12.5-8.8"
+            stroke-linecap="round" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
+        </svg>
+        <span class="text-base font-medium">Scraper</span>
       </router-link>
-      <div class="space-x-4 font-medium">
-        <router-link to="/chart" class="hover:underline">Chart</router-link>
-        <router-link to="/scraper" class="hover:underline">Link</router-link>
+    </div>
+    <div class="bg-gray-50 w-full h-16 fixed bottom-0 md:sticky md:top-0 z-10 items-center justify-center flex">
+      <div class="container mx-auto px-4 w-full justify-center md:justify-between flex items-center">
+        <router-link to="/" class="md:flex mr-8 items-center hidden p-2">
+          <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+            viewBox="0 0 600 600">
+            <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"
+              d="m79.9 148-57-57C45.4 68.5 72 56.8 90.3 59.5L122 27.8c6-6 15.8-6 21.8 0s6 15.8 0 21.8l-32.3 32.3c2 18.3-9.7 44.2-31.6 66.1zm10.4-88.5-9.5 12.8c-1.7 2.3-1.5 5.6.6 7.7l10.1 10c2 2 5.2 2.3 7.5.7l12.5-8.8"
+              stroke-linecap="round" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
+          </svg>
+          <span class="text-base font-medium">Scraper</span>
+        </router-link>
+        <div class="flex space-x-4 font-medium">
+          <router-link to="/chart" class="p-2">
+            <span class="flex justify-center items-center flex-col md:flex-row">
+              <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+                viewBox="0 0 600 600">
+                <path vector-effect="non-scaling-stroke" d="m80 440 160-160 80 120 200-200" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" fill="none" />
+              </svg>
+              <span class="text-xs md:text-base">Chart</span>
+            </span>
+          </router-link>
+          <router-link to="/scraper" class="p-2">
+            <span class="flex justify-center items-center flex-col md:flex-row">
+              <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+                viewBox="0 0 600 600">
+                <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"
+                  d="m79.9 148-57-57C45.4 68.5 72 56.8 90.3 59.5L122 27.8c6-6 15.8-6 21.8 0s6 15.8 0 21.8l-32.3 32.3c2 18.3-9.7 44.2-31.6 66.1zm10.4-88.5-9.5 12.8c-1.7 2.3-1.5 5.6.6 7.7l10.1 10c2 2 5.2 2.3 7.5.7l12.5-8.8"
+                  stroke-linecap="round" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
+              </svg>
+              <span class="text-xs md:text-base">Scrape</span>
+            </span>
+          </router-link>
+        </div>
       </div>
     </div>
   </nav>
-  <div class="container mx-auto p-4">
+  <div class="container mx-auto pb-16 p-4 md:pb-4">
     <router-view />
   </div>
 </template>
@@ -36,16 +68,23 @@ export default {
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+@media (pointer: coarse) {
+
+  .nav a,
+  .nav a:focus,
+  .nav a:focus-visible {
+    transition: background-color .5s ease-out;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .nav .router-link-active {
+    @apply no-underline bg-gray-200 bg-opacity-90 rounded-lg overflow-hidden;
+  }
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+@media (pointer: fine) {
+  .nav .router-link-active {
+    @apply underline;
+  }
 }
 </style>

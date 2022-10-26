@@ -5,7 +5,7 @@
 <style type="text/css">
 	.st0{display:none;}
 	.st1{display:inline;}
-	.st2{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10;}
+	.st2{fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
 </style>
 <g id="Ebene_1" class="st0">
 	<path class="st1" d="M158.6,29.5c0.3-14.5-18.9-23.3-29.2-12.4c0,0-34.8,34.8-34.8,34.8c-22-2.9-56,14.5-82,40.7l66.5,66.5

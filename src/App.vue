@@ -2,7 +2,7 @@
   <nav class="nav relative">
     <div
       class="container mx-auto px-4 w-full justify-start flex items-center md:hidden h-16 sticky z-10 top-0 bg-gray-50">
-      <router-link to="/" class="flex mr-8 items-center p-2 h-14">
+      <router-link to="/" class="flex mr-8 items-center p-2">
         <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
           viewBox="0 0 600 600">
           <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"

@@ -25,9 +25,7 @@
             <div class="flex w-full justify-center h-80 p-20" v-if="loading">
               <WillhabenLineChartLoader />
             </div>
-          </WillhabenFadeTransition>
-          <WillhabenFadeTransition>
-            <div v-if="chartHeight > 0" ref="vChartContainer" v-resize="onEChartResize" class="w-full"
+            <div v-else ref="vChartContainer" v-resize="onEChartResize" class="w-full"
               :style="{ height: chartHeight + 'px' }">
               <v-chart ref="vChart" :option="echartOptions" />
             </div>
@@ -41,9 +39,7 @@
             <div class="flex w-full justify-center h-80 p-20" v-if="loading">
               <WillhabenLineChartLoader />
             </div>
-          </WillhabenFadeTransition>
-          <WillhabenFadeTransition>
-            <div v-if="chartHeight > 0" ref="vChartCommunityContainer" v-resize="onEChartCommunityResize" class="w-full"
+            <div v-else ref="vChartCommunityContainer" v-resize="onEChartCommunityResize" class="w-full"
               :style="{ height: chartHeight + 'px' }">
               <v-chart ref="vChartCommunity" :option="echartOptionsCommunity" />
             </div>

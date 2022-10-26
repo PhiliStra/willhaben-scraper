@@ -20,22 +20,34 @@
     <div class="grid lg:grid-cols-2 gap-4 md:gap-8 w-full">
       <section>
         <h2>Miet- und Eigentumswohnungen</h2>
-        <div class="flex w-full justify-center h-80 p-20" v-if="loading">
-          <WillhabenLineChartLoader />
-        </div>
-        <div v-if="chartHeight > 0" ref="vChartContainer" v-resize="onEChartResize" class="w-full mt-8 pr-4 md:pr-0"
-          :style="{ height: chartHeight + 'px' }">
-          <v-chart ref="vChart" :option="echartOptions" />
+        <div class="mt-8 pr-4 md:pr-0">
+          <WillhabenFadeTransition>
+            <div class="flex w-full justify-center h-80 p-20" v-if="loading">
+              <WillhabenLineChartLoader />
+            </div>
+          </WillhabenFadeTransition>
+          <WillhabenFadeTransition>
+            <div v-if="chartHeight > 0" ref="vChartContainer" v-resize="onEChartResize" class="w-full"
+              :style="{ height: chartHeight + 'px' }">
+              <v-chart ref="vChart" :option="echartOptions" />
+            </div>
+          </WillhabenFadeTransition>
         </div>
       </section>
       <section>
         <h2>Genossenschaftswohnungen</h2>
-        <div class="flex w-full justify-center h-80 p-20" v-if="loading">
-          <WillhabenLineChartLoader />
-        </div>
-        <div v-if="chartHeight > 0" ref="vChartCommunityContainer" v-resize="onEChartCommunityResize"
-          class="w-full mt-8 pr-4 md:pr-0" :style="{ height: chartHeight + 'px' }">
-          <v-chart ref="vChartCommunity" :option="echartOptionsCommunity" />
+        <div class="mt-8 pr-4 md:pr-0">
+          <WillhabenFadeTransition>
+            <div class="flex w-full justify-center h-80 p-20" v-if="loading">
+              <WillhabenLineChartLoader />
+            </div>
+          </WillhabenFadeTransition>
+          <WillhabenFadeTransition>
+            <div v-if="chartHeight > 0" ref="vChartCommunityContainer" v-resize="onEChartCommunityResize" class="w-full"
+              :style="{ height: chartHeight + 'px' }">
+              <v-chart ref="vChartCommunity" :option="echartOptionsCommunity" />
+            </div>
+          </WillhabenFadeTransition>
         </div>
       </section>
     </div>
@@ -57,6 +69,7 @@ import {
 } from "echarts/components";
 import VChart, { THEME_KEY, INIT_OPTIONS_KEY } from "vue-echarts";
 import WillhabenLineChartLoader from '../components/WillhabenLineChartLoader.vue'
+import WillhabenFadeTransition from '../components/WillhabenFadeTransition.vue'
 
 import db from "../db/db";
 import { endpoints } from "../models/endpoints";
@@ -77,7 +90,8 @@ export default {
   props: [],
   components: {
     VChart,
-    WillhabenLineChartLoader
+    WillhabenLineChartLoader,
+    WillhabenFadeTransition
   },
   provide: {
     [THEME_KEY]: essos,

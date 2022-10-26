@@ -23,7 +23,7 @@ export default {
 .line-chart-loader {
     --stroke-width: 6;
     --animation-duration: 2s;
-    --stroke-color: #111827;
+    --stroke-color: #475569;
     --fill-color: transparent;
 
     opacity: 0.75;

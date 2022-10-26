@@ -10,6 +10,12 @@ a {
   @apply focus-visible:outline-none focus-visible:bg-slate-200 focus-visible:bg-opacity-80;
 }
 
+@media (pointer: coarse) {
+  a {
+    @apply font-bold;
+  }
+}
+
 .router-link-active {
   @apply underline;
 }

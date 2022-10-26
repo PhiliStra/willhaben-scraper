@@ -19,13 +19,14 @@
         <li>By the use of a <a title="Netlify Scheduled Function"
             href="https://github.com/StefanKandlbinder/link-previewer/blob/main/functions/willhaben-database-scheduled/willhaben-database-scheduled.js">netlify
             scheduled function</a> the data is grabbed every day on 09:00-AM and written into a <a
-            href="https://firebase.google.com/products/realtime-database">firebase reailtime database.</a>.</li>
+            href="https://firebase.google.com/products/realtime-database">firebase realtime database.</a>.</li>
       </ul>
       </p>
       <h3>What's the deal?</h3>
       <p>Coming back to Willhaben: We are fetching the data from the database, transform it, and show it inside the
         <router-link to="/chart" class="hover:underline">chart
-        </router-link> section...</p>
+        </router-link> section...
+      </p>
     </section>
   </article>
 </template>

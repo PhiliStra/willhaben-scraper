@@ -5,9 +5,12 @@
 </template>
   
 <style>
-.fade-enter-active,
-.fade-leave-active {
+.fade-enter-active {
     transition: all .5s ease-in-out;
+}
+
+.fade-leave-active {
+    transition: all .25s ease-in-out;
 }
 
 .fade-enter-from,

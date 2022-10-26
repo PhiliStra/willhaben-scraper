@@ -3,13 +3,13 @@
         <path class="draw" d="m50 475 100-275 100 225L350 50l100 500 100-300" stroke="var(--stroke-color)" fill="none"
             stroke-width="var(--stroke-width)" stroke-linecap="round" stroke-linejoin="round" />
         <path class="circle-1" d="M150 180c11.04 0 20 8.96 20 20s-8.96 20-20 20-20-8.96-20-20 8.96-20 20-20z"
-            stroke="var(--stroke-color)" stroke-width="var(--stroke-width)" fill="none" />
+            stroke="var(--stroke-color)" stroke-width="var(--stroke-width)" fill="var(--fill-color)" />
         <path class="circle-2" d="M250 405c11.04 0 20 8.96 20 20s-8.96 20-20 20-20-8.96-20-20 8.96-20 20-20z"
-            stroke="var(--stroke-color)" stroke-width="var(--stroke-width)" fill="none" />
+            stroke="var(--stroke-color)" stroke-width="var(--stroke-width)" fill="var(--fill-color)" />
         <path class="circle-3" d="M350 30c11.04 0 20 8.96 20 20s-8.96 20-20 20-20-8.96-20-20 8.96-20 20-20z"
-            stroke="var(--stroke-color)" stroke-width="var(--stroke-width)" fill="none" />
+            stroke="var(--stroke-color)" stroke-width="var(--stroke-width)" fill="var(--fill-color)" />
         <path class="circle-4" d="M450 525.5c11.04 0 20 8.96 20 20s-8.96 20-20 20-20-8.96-20-20 8.96-20 20-20z"
-            stroke="var(--stroke-color)" stroke-width="var(--stroke-width)" fill="none" />
+            stroke="var(--stroke-color)" stroke-width="var(--stroke-width)" fill="var(--fill-color)" />
     </svg>
 </template>
 <script>
@@ -21,9 +21,10 @@ export default {
 </script>
 <style>
 .line-chart-loader {
-    --stroke-width: 4;
+    --stroke-width: 6;
     --animation-duration: 2s;
     --stroke-color: #111827;
+    --fill-color: transparent;
 
     opacity: 0.75;
 }

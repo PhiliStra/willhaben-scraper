@@ -6,7 +6,7 @@
           viewBox="0 0 600 600">
           <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"
             d="m79.9 148-57-57C45.4 68.5 72 56.8 90.3 59.5L122 27.8c6-6 15.8-6 21.8 0s6 15.8 0 21.8l-32.3 32.3c2 18.3-9.7 44.2-31.6 66.1zm10.4-88.5-9.5 12.8c-1.7 2.3-1.5 5.6.6 7.7l10.1 10c2 2 5.2 2.3 7.5.7l12.5-8.8"
-            stroke-linecap="round" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
+            stroke-linecap="round" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
         </svg>
         <span class="text-base font-medium inline-block ml-1 tracking-wide">Scraper</span>
       </router-link>
@@ -18,7 +18,7 @@
             viewBox="0 0 600 600">
             <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"
               d="m79.9 148-57-57C45.4 68.5 72 56.8 90.3 59.5L122 27.8c6-6 15.8-6 21.8 0s6 15.8 0 21.8l-32.3 32.3c2 18.3-9.7 44.2-31.6 66.1zm10.4-88.5-9.5 12.8c-1.7 2.3-1.5 5.6.6 7.7l10.1 10c2 2 5.2 2.3 7.5.7l12.5-8.8"
-              stroke-linecap="round" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
+              stroke-linecap="round" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
           </svg>
           <span class="text-base font-medium inline-block ml-1 tracking-wide">Scraper</span>
         </router-link>
@@ -27,7 +27,7 @@
             <span class="flex justify-center items-center flex-col md:flex-row min-w-14 min-h-14 p-2">
               <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
                 viewBox="0 0 600 600">
-                <path vector-effect="non-scaling-stroke" d="m80 440 160-160 80 120 200-200" stroke-width="2"
+                <path vector-effect="non-scaling-stroke" d="m80 440 160-160 80 120 200-200" stroke-width="1.5"
                   stroke-linecap="round" stroke-linejoin="round" fill="none" />
               </svg>
               <span class="text-xs md:text-base tracking-wide md:ml-1">Chart</span>
@@ -39,7 +39,8 @@
                 viewBox="0 0 600 600">
                 <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"
                   d="m79.9 148-57-57C45.4 68.5 72 56.8 90.3 59.5L122 27.8c6-6 15.8-6 21.8 0s6 15.8 0 21.8l-32.3 32.3c2 18.3-9.7 44.2-31.6 66.1zm10.4-88.5-9.5 12.8c-1.7 2.3-1.5 5.6.6 7.7l10.1 10c2 2 5.2 2.3 7.5.7l12.5-8.8"
-                  stroke-linecap="round" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
+                  stroke-linecap="round" stroke-width="1.5" stroke-linejoin="round" stroke-miterlimit="10"
+                  fill="none" />
               </svg>
               <span class="text-xs md:text-base tracking-wide md:ml-1">Scrape</span>
             </span>

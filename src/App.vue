@@ -24,7 +24,7 @@
         </router-link>
         <div class="flex space-x-4 font-medium">
           <router-link to="/chart" class="">
-            <span class="flex justify-center items-center flex-col md:flex-row min-w-14 min-h-14 p-2">
+            <span class="flex justify-center items-center flex-col md:flex-row min-w-12 min-h-12 px-2">
               <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
                 viewBox="0 0 600 600">
                 <path vector-effect="non-scaling-stroke" d="m80 440 160-160 80 120 200-200" stroke-width="1.5"
@@ -33,9 +33,9 @@
               <span class="text-xs font-semibold md:font-medium md:text-base tracking-wide md:ml-1">Chart</span>
             </span>
           </router-link>
-          <router-link to="/scraper" class="">
-            <span class="flex justify-center items-center flex-col md:flex-row min-w-14 min-h-14 p-2">
-              <svg class="stroke-current w-6 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
+          <router-link to="/scraper" class="flex items-center">
+            <span class="flex justify-center items-center flex-col md:flex-row min-w-12 min-h-12 px-2">
+              <svg class="stroke-current w-5 aspect-square" xmlns="http://www.w3.org/2000/svg" xml:space="preserve"
                 viewBox="0 0 600 600">
                 <path vector-effect="non-scaling-stroke" transform="matrix(3.5 0 0 3.5 .225 .225)"
                   d="m79.9 148-57-57C45.4 68.5 72 56.8 90.3 59.5L122 27.8c6-6 15.8-6 21.8 0s6 15.8 0 21.8l-32.3 32.3c2 18.3-9.7 44.2-31.6 66.1zm10.4-88.5-9.5 12.8c-1.7 2.3-1.5 5.6.6 7.7l10.1 10c2 2 5.2 2.3 7.5.7l12.5-8.8"
@@ -71,12 +71,28 @@ export default {
   .nav a,
   .nav a:focus,
   .nav a:focus-visible {
-    transition: background-color .5s ease-out;
+    transition: all .5s ease-out;
     -webkit-tap-highlight-color: transparent;
+    @apply border border-black rounded-lg;
+    box-shadow: 2px 2px 0 2px;
+    transform: translate(0, 0);
   }
 
   .nav .router-link-active {
-    @apply no-underline bg-gray-200 bg-opacity-90 rounded-lg overflow-hidden;
+    @apply no-underline overflow-hidden;
+    animation: button .1s ease-out 1 forwards;
+  }
+}
+
+@keyframes button {
+  0% {
+    box-shadow: 2px 2px 0 2px;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    box-shadow: -1px -1px 0 1px;
+    transform: translate(2px, 2px);
   }
 }
 

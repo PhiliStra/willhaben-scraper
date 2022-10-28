@@ -22,7 +22,7 @@
         <h2 id="miet-und-eigentumswohnungen">Miet- und Eigentumswohnungen</h2>
         <div class="mt-8 pr-4 md:pr-0">
           <WillhabenFadeTransition>
-            <div class="flex w-full justify-center h-80 p-20" v-if="loading">
+            <div class="flex w-full justify-center h-80 p-24" v-if="loading">
               <WillhabenLineChartLoader />
             </div>
             <div v-else ref="vChartContainer" v-resize="onEChartResize" class="w-full"
@@ -36,7 +36,7 @@
         <h2 id="genossenschaftswohnungen">Genossenschaftswohnungen</h2>
         <div class="mt-8 pr-4 md:pr-0">
           <WillhabenFadeTransition>
-            <div class="flex w-full justify-center h-80 p-20" v-if="loading">
+            <div class="flex w-full justify-center h-80 p-24" v-if="loading">
               <WillhabenLineChartLoader />
             </div>
             <div v-else ref="vChartCommunityContainer" v-resize="onEChartCommunityResize" class="w-full"

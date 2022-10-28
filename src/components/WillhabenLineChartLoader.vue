@@ -21,7 +21,7 @@ export default {
 </script>
 <style>
 .line-chart-loader {
-    --stroke-width: 6;
+    --stroke-width: 8;
     --animation-duration: 2s;
     --stroke-color: #475569;
     --fill-color: transparent;

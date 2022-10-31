@@ -25,7 +25,10 @@ const router = createRouter({
       // BEFORE:
       // return { selector: to.hash }
 
-      return { el: to.hash };
+      return {
+        el: to.hash,
+        behavior: "smooth",
+      };
     } else {
       return { top: 0 };
     }

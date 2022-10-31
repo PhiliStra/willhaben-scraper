@@ -8,6 +8,9 @@
 [functions."willhaben-database-scheduled"]
   schedule = "5/5 7 * * *"
 
+[functions."willhaben-screenshot"]
+  schedule = "5/5 7 * * *"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

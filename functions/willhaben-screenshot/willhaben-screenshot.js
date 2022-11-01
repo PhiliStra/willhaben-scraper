@@ -16,7 +16,7 @@ const options = {
   base: process.env.BASE_URL,
   width: 1200,
   height: 630,
-  maxage: 60 * 60 * 24 * 7,
+  maxage: 60 * 60 * 24,
 };
 
 exports.handler = async (event, context) => {
@@ -63,7 +63,7 @@ exports.handler = async (event, context) => {
     headers: {
       "Cache-Control": `public, max-age=${maxage}`,
       "Content-Type": "image/png",
-      // Expires: new Date(Date.now() + maxage * 1000).toUTCString(),
+      Expires: new Date(Date.now() + maxage * 1000).toUTCString(),
     },
     body: screenshot.toString("base64"),
     isBase64Encoded: true,

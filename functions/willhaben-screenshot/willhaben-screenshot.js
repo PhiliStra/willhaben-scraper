@@ -34,22 +34,32 @@ exports.handler = async (event, context) => {
 
   await page.setViewport(params);
 
-  await page.goto(url, { waitUntil: "domcontentloaded" });
+  try {
+    await page.goto(url, { waitUntil: "domcontentloaded" });
 
-  await page.waitForTimeout(3500);
+    await page.waitForTimeout(3500);
 
-  const screenshot = await page.screenshot();
+    const screenshot = await page.screenshot();
 
-  await browser.close();
+    await browser.close();
 
-  return {
-    statusCode: 200,
-    headers: {
-      "Cache-Control": `public, max-age=${params.maxage}`,
-      "Content-Type": "image/png",
-      Expires: new Date(Date.now() + params.maxage * 1000).toUTCString(),
-    },
-    body: screenshot.toString("base64"),
-    isBase64Encoded: true,
-  };
+    return {
+      statusCode: 200,
+      headers: {
+        "Cache-Control": `public, max-age=${params.maxage}`,
+        "Content-Type": "image/png",
+        Expires: new Date(Date.now() + params.maxage * 1000).toUTCString(),
+      },
+      body: screenshot.toString("base64"),
+      isBase64Encoded: true,
+    };
+  } catch (error) {
+    await browser.close();
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error,
+      }),
+    };
+  }
 };

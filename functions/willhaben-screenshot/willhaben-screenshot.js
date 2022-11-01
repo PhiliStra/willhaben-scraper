@@ -1,10 +1,41 @@
 const chromium = require("chrome-aws-lambda");
 const puppeteer = require("puppeteer-core");
+const defaults = require("lodash.defaults");
+const qs = require("qs");
+const regexMerge = require("regex-merge");
 
-exports.handler = async function (req, res) {
-  let result = {};
+const pattern = regexMerge(
+  /^(?:\/\.netlify\/functions)?/,
+  /(?:\/willhaben-screenshot)?/,
+  /(?:\/(?<width>[0-9]+)x(?<height>[0-9]+))?/,
+  /(?<path>\/.*?)/,
+  /(?:\.png)?$/
+);
 
-  const url = "https://willhaben.netlify.app/chart";
+const options = {
+  base: process.env.BASE_URL,
+  width: 1200,
+  height: 630,
+  maxage: 60 * 60 * 24 * 7,
+};
+
+exports.handler = async (event, context) => {
+  console.log(event);
+  const prefix = event.rawUrl.split("/screenshot")[0];
+  const params = event.queryStringParameters;
+
+  const { base, path, width, height, maxage } = (() => {
+    const settings = defaults(event.path.match(pattern).groups, options);
+
+    settings.width = parseInt(settings.width);
+    settings.height = parseInt(settings.height);
+
+    return settings;
+  })();
+
+  const url = `${prefix}/chart/${qs.stringify(event.queryStringParameters, {
+    addQueryPrefix: true,
+  })}`;
 
   const browser = await puppeteer.launch({
     args: chromium.args,
@@ -13,38 +44,28 @@ exports.handler = async function (req, res) {
     headless: true,
   });
 
-  // open new page in browser
   const page = await browser.newPage();
-  await page.setViewport({ width: 1200, height: 630 });
 
-  try {
-    // navigate to the targetURL
-    await page.goto(url, {
-      timeout: 10 * 1000,
-      waitUntil: "domcontentloaded",
-    });
+  await page.setViewport({ width, height });
 
-    await page.waitForTimeout(5000);
+  console.log(url);
 
-    await page.screenshot({
-      fullPage: true,
-      path: `./img/og-image.png`,
-    });
+  await page.goto(url, { waitUntil: "networkidle2" });
 
-    // close the browser
-    await browser.close();
+  await page.waitForTimeout(5000);
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify("DONE"),
-    };
-  } catch (error) {
-    await browser.close();
-    return {
-      statusCode: 400,
-      body: JSON.stringify({
-        error,
-      }),
-    };
-  }
+  const screenshot = await page.screenshot();
+
+  await browser.close();
+
+  return {
+    statusCode: 200,
+    headers: {
+      "Cache-Control": `public, max-age=${maxage}`,
+      "Content-Type": "image/png",
+      Expires: new Date(Date.now() + maxage * 1000).toUTCString(),
+    },
+    body: screenshot.toString("base64"),
+    isBase64Encoded: true,
+  };
 };

@@ -8,8 +8,10 @@
 [functions."willhaben-database-scheduled"]
   schedule = "5/5 7 * * *"
 
-[functions."willhaben-screenshot"]
-  schedule = "5/5 8 * * *"
+[[redirects]]
+  from = "/screenshot/*"
+  to = "/.netlify/functions/willhaben-screenshot/:splat"
+  status = 200
 
 [[redirects]]
   from = "/*"

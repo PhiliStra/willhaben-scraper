@@ -28,7 +28,7 @@ exports.handler = async function (req, res) {
 
     await page.screenshot({
       fullPage: true,
-      path: `./dist/img/og-image.png`,
+      path: `./img/og-image.png`,
     });
 
     // close the browser

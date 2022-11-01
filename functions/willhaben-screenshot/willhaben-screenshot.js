@@ -1,37 +1,23 @@
 const chromium = require("chrome-aws-lambda");
 const puppeteer = require("puppeteer-core");
-const defaults = require("lodash.defaults");
 const qs = require("qs");
-const regexMerge = require("regex-merge");
 
-const pattern = regexMerge(
-  /^(?:\/\.netlify\/functions)?/,
-  /(?:\/willhaben-screenshot)?/,
-  /(?:\/(?<width>[0-9]+)x(?<height>[0-9]+))?/,
-  /(?<path>\/.*?)/,
-  /(?:\.png)?$/
-);
-
-const options = {
-  base: process.env.BASE_URL,
+const params = {
   width: 1200,
   height: 630,
   maxage: 60 * 60 * 24,
 };
 
 exports.handler = async (event, context) => {
-  console.log(event);
   const prefix = event.rawUrl.split("/screenshot")[0];
-  const params = event.queryStringParameters;
 
-  const { base, path, width, height, maxage } = (() => {
-    const settings = defaults(event.path.match(pattern).groups, options);
+  if (event.queryStringParameters.width && event.queryStringParameters.height) {
+    const queryParams = event.queryStringParameters;
+    params.width = parseInt(queryParams.width);
+    params.height = parseInt(queryParams.height);
 
-    settings.width = parseInt(settings.width);
-    settings.height = parseInt(settings.height);
-
-    return settings;
-  })();
+    console.log(params);
+  }
 
   const url = `${prefix}/chart/${qs.stringify(event.queryStringParameters, {
     addQueryPrefix: true,
@@ -46,13 +32,11 @@ exports.handler = async (event, context) => {
 
   const page = await browser.newPage();
 
-  await page.setViewport({ width, height });
+  await page.setViewport(params);
 
-  console.log(url);
+  await page.goto(url, { waitUntil: "domcontentloaded" });
 
-  await page.goto(url, { waitUntil: "networkidle2" });
-
-  await page.waitForTimeout(3000);
+  await page.waitForTimeout(3500);
 
   const screenshot = await page.screenshot();
 
@@ -61,9 +45,9 @@ exports.handler = async (event, context) => {
   return {
     statusCode: 200,
     headers: {
-      "Cache-Control": `public, max-age=${maxage}`,
+      "Cache-Control": `public, max-age=${params.maxage}`,
       "Content-Type": "image/png",
-      Expires: new Date(Date.now() + maxage * 1000).toUTCString(),
+      Expires: new Date(Date.now() + params.maxage * 1000).toUTCString(),
     },
     body: screenshot.toString("base64"),
     isBase64Encoded: true,

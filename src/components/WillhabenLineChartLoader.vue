@@ -33,7 +33,7 @@ export default {
     stroke-dasharray: 2150;
     stroke-dashoffset: 2150;
     opacity: 1;
-    animation: draw var(--animation-duration) linear infinite forwards;
+    animation: draw var(--animation-duration) ease-in-out infinite forwards;
 }
 
 .fade {
@@ -103,11 +103,11 @@ export default {
         transform: scale(0)
     }
 
-    13% {
+    20% {
         transform: scale(0)
     }
 
-    21% {
+    28% {
         transform: scale(1)
     }
 
@@ -125,11 +125,11 @@ export default {
         transform: scale(0)
     }
 
-    25% {
+    27% {
         transform: scale(0)
     }
 
-    33% {
+    35% {
         transform: scale(1)
     }
 
@@ -169,11 +169,11 @@ export default {
         transform: scale(0)
     }
 
-    66% {
+    57% {
         transform: scale(0)
     }
 
-    74% {
+    65% {
         transform: scale(1)
     }
 

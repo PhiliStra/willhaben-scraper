@@ -52,7 +52,7 @@ exports.handler = async (event, context) => {
 
   await page.goto(url, { waitUntil: "networkidle2" });
 
-  await page.waitForTimeout(5000);
+  await page.waitForTimeout(3000);
 
   const screenshot = await page.screenshot();
 
@@ -63,7 +63,7 @@ exports.handler = async (event, context) => {
     headers: {
       "Cache-Control": `public, max-age=${maxage}`,
       "Content-Type": "image/png",
-      Expires: new Date(Date.now() + maxage * 1000).toUTCString(),
+      // Expires: new Date(Date.now() + maxage * 1000).toUTCString(),
     },
     body: screenshot.toString("base64"),
     isBase64Encoded: true,

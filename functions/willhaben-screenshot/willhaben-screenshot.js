@@ -5,18 +5,24 @@ const qs = require("qs");
 const params = {
   width: 1200,
   height: 630,
+  hasTouch: false,
   maxage: 60 * 60 * 24,
 };
 
 exports.handler = async (event, context) => {
   const prefix = event.rawUrl.split("/screenshot")[0];
+  const queryParams = event.queryStringParameters;
 
-  if (event.queryStringParameters.width && event.queryStringParameters.height) {
-    const queryParams = event.queryStringParameters;
+  if (event.queryStringParameters.width) {
     params.width = parseInt(queryParams.width);
-    params.height = parseInt(queryParams.height);
+  }
 
-    console.log(params);
+  if (event.queryStringParameters.height) {
+    params.height = parseInt(queryParams.height);
+  }
+
+  if (event.queryStringParameters.hasTouch) {
+    params.hasTouch = true;
   }
 
   const url = `${prefix}/chart/${qs.stringify(event.queryStringParameters, {

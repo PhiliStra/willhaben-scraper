@@ -45,6 +45,10 @@ exports.handler = async (event, context) => {
 
     await page.waitForTimeout(3500);
 
+    // await page.hover("#mietundeigentum");
+
+    await page.mouse.move(563, 450);
+
     const screenshot = await page.screenshot();
 
     await browser.close();

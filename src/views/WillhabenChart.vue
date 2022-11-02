@@ -27,7 +27,7 @@
             </div>
             <div v-else ref="vChartContainer" v-resize="onEChartResize" class="w-full"
               :style="{ height: chartHeight + 'px' }">
-              <v-chart ref="vChart" :option="echartOptions" />
+              <v-chart id="mietundeigentum" ref="vChart" :option="echartOptions" />
             </div>
           </WillhabenFadeTransition>
         </div>
@@ -41,7 +41,7 @@
             </div>
             <div v-else ref="vChartCommunityContainer" v-resize="onEChartCommunityResize" class="w-full"
               :style="{ height: chartHeight + 'px' }">
-              <v-chart ref="vChartCommunity" :option="echartOptionsCommunity" />
+              <v-chart id="genossenschaft" ref="vChartCommunity" :option="echartOptionsCommunity" />
             </div>
           </WillhabenFadeTransition>
         </div>

@@ -6,11 +6,11 @@
   
 <style>
 .fade-enter-active {
-    transition: all .5s ease-in-out;
+    transition: opacity .5s ease-in-out;
 }
 
 .fade-leave-active {
-    transition: all .25s ease-in-out;
+    transition: opacity .25s ease-in-out;
 }
 
 .fade-enter-from,

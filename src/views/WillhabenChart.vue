@@ -23,7 +23,7 @@
         <div class="mt-8 pr-4 md:pr-0">
           <WillhabenFadeTransition>
             <div class="flex w-full justify-center h-80" v-if="loading">
-              <WillhabenLineChartSkeleton />
+              <WillhabenLineChartSkeleton min="300" max="980" lines="1" days="90" />
             </div>
             <div v-else ref="vChartContainer" v-resize="onEChartResize" class="w-full"
               :style="{ height: chartHeight + 'px' }">
@@ -37,7 +37,7 @@
         <div class="mt-8 pr-4 md:pr-0">
           <WillhabenFadeTransition>
             <div class="flex w-full justify-center h-80" v-if="loading">
-              <WillhabenLineChartSkeleton />
+              <WillhabenLineChartSkeleton min="10" max="150" lines="1" days="90" />
             </div>
             <div v-else ref="vChartCommunityContainer" v-resize="onEChartCommunityResize" class="w-full"
               :style="{ height: chartHeight + 'px' }">

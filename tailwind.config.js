@@ -8,14 +8,10 @@ module.exports = {
       },
       minWidth: {
         12: "3rem",
-      },
-      minHeight: {
-        12: "3rem",
-      },
-      minWidth: {
         14: "3.5rem",
       },
       minHeight: {
+        12: "3rem",
         14: "3.5rem",
       },
     },

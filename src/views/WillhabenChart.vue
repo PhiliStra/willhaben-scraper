@@ -46,6 +46,34 @@
           </WillhabenFadeTransition>
         </div>
       </section>
+      <section>
+        <h2 id="miet-und-eigentumswohnungen-gesamt">Miet- und Eigentumswohnungen Gesamt</h2>
+        <div class="mt-8 pr-4 md:pr-0">
+          <WillhabenFadeTransition>
+            <div class="flex w-full justify-center h-80" v-if="loading">
+              <WillhabenLineChartSkeleton min="300" max="980" lines="1" days="90" />
+            </div>
+            <div v-else ref="vChartSumContainer" v-resize="onEChartSumResize" class="w-full"
+              :style="{ height: chartHeight + 'px' }">
+              <v-chart id="mietundeigentumgesamt" ref="vChartSum" :option="echartOptionsSum" />
+            </div>
+          </WillhabenFadeTransition>
+        </div>
+      </section>
+      <section>
+        <h2 id="genossenschafstwohnungen-gesamt">Genossenschaftswohnungen Gesamt</h2>
+        <div class="mt-8 pr-4 md:pr-0">
+          <WillhabenFadeTransition>
+            <div class="flex w-full justify-center h-80" v-if="loading">
+              <WillhabenLineChartSkeleton min="300" max="980" lines="1" days="90" />
+            </div>
+            <div v-else ref="vChartCommunitySumContainer" v-resize="onEChartCommunitySumResize" class="w-full"
+              :style="{ height: chartHeight + 'px' }">
+              <v-chart id="mietundeigentumgesamt" ref="vChartCommunitySum" :option="echartOptionsCommunitySum" />
+            </div>
+          </WillhabenFadeTransition>
+        </div>
+      </section>
     </div>
   </article>
 </template>
@@ -95,13 +123,19 @@ export default {
   setup() {
     const loading = ref(true);
     const series = ref([]);
+    const seriesSum = ref([]);
     const seriesCommunity = ref([]);
+    const seriesCommunitySum = ref([]);
     const chartHeight = ref(0);
 
     const vChartContainer = ref(0);
+    const vChartSumContainer = ref(0);
     const vChart = ref(null);
+    const vChartSum = ref(null);
     const vChartCommunityContainer = ref(0);
+    const vChartCommunitySumContainer = ref(0);
     const vChartCommunity = ref(null);
+    const vChartCommunitySum = ref(null);
     const echartSize = ref({ width: 1280, height: 800 });
     const echartSizeCommunity = ref({ width: 1280, height: 800 });
     const echartOptionsCommunity = ref({
@@ -155,6 +189,59 @@ export default {
       series: [],
     });
 
+    const echartOptionsCommunitySum = ref({
+      autoresize: true,
+      tooltip: {
+        trigger: "axis",
+        axisPointer: {
+          // Use axis to trigger tooltip
+          type: "shadow", // 'shadow' as default; can also be 'line' or 'shadow'
+        },
+      },
+      legend: {},
+      grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true,
+      },
+      yAxis: {
+        type: "value",
+      },
+      xAxis: {
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      },
+      series: [],
+    });
+
+    const echartOptionsSum = ref({
+      autoresize: true,
+      tooltip: {
+        trigger: "axis",
+        axisPointer: {
+          // Use axis to trigger tooltip
+          type: "shadow", // 'shadow' as default; can also be 'line' or 'shadow'
+        },
+      },
+      legend: {},
+      grid: {
+        left: "3%",
+        right: "4%",
+        bottom: "3%",
+        containLabel: true,
+      },
+      yAxis: {
+        type: "value",
+      },
+      xAxis: {
+        type: "category",
+        data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      },
+      series: [],
+    });
+
+
     const onUpdateChart = () => {
       onValue(reference(db), (snapshot) => {
         const data = snapshot.val();
@@ -163,6 +250,8 @@ export default {
         let _categories = [];
         let _series = [];
         let _seriesCommunity = [];
+        let _seriesSum = [];
+        let _seriesCommunitySum = [];
 
         const years = Object.keys(data);
 
@@ -209,6 +298,50 @@ export default {
           }
         });
 
+        let sum = 0;
+
+        let _seriesSumData = [];
+
+        _series[0].data.map((value, index) => {
+          _series.forEach(serie => {
+            sum += serie.data[index];
+          })
+          _seriesSumData.push(sum)
+          sum = 0;
+        })
+
+        _seriesSum.push({
+          data: _seriesSumData,
+          emphasis: {focus: 'series'},
+          label: {show: true},
+          name: "Wohnungen Gesamt",
+          smooth: true,
+          type: 'line'
+        })
+
+        console.log("series sum: ", _seriesSum)
+
+        let _seriesCommunitySumData = [];
+
+        _seriesCommunity[0].data.map((value, index) => {
+          _seriesCommunity.forEach(serie => {
+            sum += serie.data[index];
+          })
+          _seriesCommunitySumData.push(sum)
+          sum = 0;
+        })
+
+        _seriesCommunitySum.push({
+          data: _seriesCommunitySumData,
+          emphasis: {focus: 'series'},
+          label: {show: true},
+          name: "Genossenschaftswohnungen Gesamt",
+          smooth: true,
+          type: 'line'
+        })
+
+        console.log("series community sum: ", _seriesCommunitySum)
+
         // chartHeight.value = _categories.length * 44;
         chartHeight.value = 320;
 
@@ -246,6 +379,37 @@ export default {
           },
         };
 
+        max = 0;
+        min = 0;
+
+        _seriesSum.forEach(serie => {
+          let maxTmp = Math.max(...serie.data);
+          let minTmp = Math.min(...serie.data);
+
+          if (maxTmp > max) {
+            max = maxTmp;
+          }
+
+          if (minTmp < max) {
+            min = minTmp;
+          }
+        })
+
+        echartOptionsSum.value = {
+          ...echartOptionsSum.value,
+          ...{
+            xAxis: {
+              type: "category",
+              data: _categories,
+            },
+            yAxis: {
+              min: min - 10,
+              max: max + 10
+            },
+            series: _seriesSum,
+          },
+        };
+
         echartOptionsCommunity.value = {
           ...echartOptionsCommunity.value,
           ...{
@@ -257,6 +421,38 @@ export default {
             series: _seriesCommunity,
           },
         };
+
+        max = 0;
+        min = 0;
+
+        _seriesCommunitySum.forEach(serie => {
+          let maxTmp = Math.max(...serie.data);
+          let minTmp = Math.min(...serie.data);
+
+          if (maxTmp > max) {
+            max = maxTmp;
+          }
+
+          if (minTmp < max) {
+            min = minTmp;
+          }
+        })
+
+        echartOptionsCommunitySum.value = {
+          ...echartOptionsCommunitySum.value,
+          ...{
+            legend: { type: "scroll" },
+            xAxis: {
+              type: "category",
+              data: _categories,
+            },
+            yAxis: {
+              min: min - 10,
+              max: max + 10
+            },
+            series: _seriesCommunitySum,
+          },
+        };
       });
     };
 
@@ -264,8 +460,16 @@ export default {
       vChart.value.resize(width, height);
     };
 
+    const onEChartSumResize = ({ width, height }) => {
+      vChartSum.value.resize(width, height);
+    };
+
     const onEChartCommunityResize = ({ width, height }) => {
       vChartCommunity.value.resize(width, height);
+    };
+
+    const onEChartCommunitySumResize = ({ width, height }) => {
+      vChartCommunitySum.value.resize(width, height);
     };
 
     onMounted(async () => {
@@ -276,17 +480,27 @@ export default {
       loading,
       chartHeight,
       onEChartResize,
+      onEChartSumResize,
       onEChartCommunityResize,
+      onEChartCommunitySumResize,
       vChartContainer,
+      vChartSumContainer,
       vChart,
+      vChartSum,
       vChartCommunityContainer,
+      vChartCommunitySumContainer,
       vChartCommunity,
+      vChartCommunitySum,
       echartSize,
       echartSizeCommunity,
       echartOptions,
+      echartOptionsSum,
       echartOptionsCommunity,
+      echartOptionsCommunitySum,
       series,
+      seriesSum,
       seriesCommunity,
+      seriesCommunitySum
     };
   },
 };

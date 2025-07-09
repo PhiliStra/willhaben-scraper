@@ -2,6 +2,9 @@
   base = "/"
   TZ = "Europe/Berlin"
 
+  [build.environment]
+  NODE_VERSION = "18"
+
 [functions]
   directory = "functions"
 

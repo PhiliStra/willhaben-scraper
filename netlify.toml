@@ -2,7 +2,7 @@
   base = "/"
   TZ = "Europe/Berlin"
 
-  [build.environment]
+[build.environment]
   NODE_VERSION = "18"
 
 [functions]
